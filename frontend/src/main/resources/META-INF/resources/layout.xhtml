@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Paaji+2|Open+Sans&amp;display=swap" rel="stylesheet"/>
+
+    <title>
+        <ui:insert name="title">Default title</ui:insert>
+    </title>
+
+    <ui:insert name="headTags"/>
+</head>
+<body>
+
+<div class="header">
+    <a href="${pageContext.request.contextPath}/" class="header-logo">APPLICATION NAME</a>
+
+    <sec:authenticated>
+        <div class="header-text"><h:outputText value="Welcome, #{userInfoController.username}"/></div>
+        <div>
+            <a href="${pageContext.request.contextPath}/logout" id="logout-btn" class="btn">LOG OUT</a>
+        </div>
+    </sec:authenticated>
+
+    <sec:anonymous>
+        <div class="header-text">Please sign up or log in :)</div>
+        <div>
+            <a href="${pageContext.request.contextPath}/signup.jsf" id="toSignup-btn"
+               class="btn btn-m btn-cta">SIGN UP</a>
+            <a href="${pageContext.request.contextPath}/login.jsf" id="toLogin-btn" class="btn btn-m">LOG IN</a>
+        </div>
+    </sec:anonymous>
+</div>
+<div class="content">
+    <ui:insert name="content"/>
+</div>
+
+</body>
+</html>

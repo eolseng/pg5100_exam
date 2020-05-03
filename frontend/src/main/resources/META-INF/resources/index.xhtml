@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+>
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">TEST APPLICATION</ui:define>
+
+    <ui:define name="content">
+
+        <h2>Welcome to this amazing website</h2>
+
+        <sec:authenticated>
+            <p>You are logged in</p>
+        </sec:authenticated>
+
+        <sec:anonymous>
+            <p>Please sign up or log in to use the service.</p>
+            <div>
+                <a href="${pageContext.request.contextPath}/signup.jsf" id="toSignup-btn" class="btn btn-m btn-cta">SIGN UP</a>
+                <a href="${pageContext.request.contextPath}/login.jsf" id="toLogin-btn" class="btn btn-m">LOG OUT</a>
+            </div>
+        </sec:anonymous>
+
+    </ui:define>
+
+</ui:composition>
+</html>
