@@ -22,11 +22,13 @@
 <body>
 
 <div class="header">
+
     <a href="${pageContext.request.contextPath}/" class="header-logo">APPLICATION NAME</a>
 
     <sec:authenticated>
         <div class="header-text"><h:outputText value="Welcome, #{userInfoController.username}"/></div>
         <div>
+            <a href="${pageContext.request.contextPath}/ui/profile.jsf" id="toProfile-btn" class="btn">PROFILE</a>
             <a href="${pageContext.request.contextPath}/logout" id="logout-btn" class="btn">LOG OUT</a>
         </div>
     </sec:authenticated>
@@ -34,12 +36,13 @@
     <sec:anonymous>
         <div class="header-text">Please sign up or log in :)</div>
         <div>
-            <a href="${pageContext.request.contextPath}/signup.jsf" id="toSignUp-btn"
-               class="btn btn-m btn-cta">SIGN UP</a>
+            <a href="${pageContext.request.contextPath}/signup.jsf" id="toSignUp-btn" class="btn btn-m btn-cta">SIGN UP</a>
             <a href="${pageContext.request.contextPath}/login.jsf" id="toLogIn-btn" class="btn btn-m">LOG IN</a>
         </div>
     </sec:anonymous>
+
 </div>
+
 <div class="content">
     <ui:insert name="content"/>
 </div>

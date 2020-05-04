@@ -22,8 +22,11 @@ public class DefaultDataInitializerService {
     @PostConstruct
     public void initialize() {
         User user1 = attempt(() -> userService.createUser("Foo", "Bar"));
+        assert user1 != null;
         User user2 = attempt(() -> userService.createUser("James", "Bond"));
+        assert user2 != null;
         User user3 = attempt(() -> userService.createUser("Fus", "Ro'Dah"));
+        assert user3 != null;
 
         Long item1Id = attempt(() -> itemService.createItem("Pistol"));
         Long item2Id = attempt(() -> itemService.createItem("Dagger"));

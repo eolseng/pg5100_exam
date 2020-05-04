@@ -1,5 +1,6 @@
 package no.kristiania.pg5100_exam.backend.service;
 
+import no.kristiania.pg5100_exam.backend.entity.PlaceholderItem;
 import no.kristiania.pg5100_exam.backend.entity.User;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;

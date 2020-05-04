@@ -2,8 +2,6 @@ package no.kristiania.pg5100_exam.selenium;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,28 +46,6 @@ public class SeleniumDriverHandler {
         }
 
         return new ChromeDriver();
-    }
-
-    public static WebDriver getFirefoxDriver(){
-        /*
-            Need to have an updated Firefox, but also need
-            to download and put the geckodriver in your own home dir.
-            See:
-
-            https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/WebDriver
-            https://github.com/mozilla/geckodriver/releases
-
-            However, drivers for FireFox have been often unstable.
-            Therefore, I do recommend to use Chrome instead
-         */
-
-        setupDriverExecutable("geckodriver", "webdriver.gecko.driver");
-
-        DesiredCapabilities desiredCapabilities = DesiredCapabilities.firefox();
-        desiredCapabilities.setCapability("marionette", true);
-        desiredCapabilities.setJavascriptEnabled(true);
-
-        return  new FirefoxDriver(desiredCapabilities);
     }
 
 }

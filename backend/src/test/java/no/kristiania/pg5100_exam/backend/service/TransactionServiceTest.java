@@ -10,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
@@ -70,6 +71,45 @@ class TransactionServiceTest extends ServiceTestBase {
         String username = "Test_" + userIdCounter++;
         createUser(username);
         assertThrows(IllegalArgumentException.class, () -> transactionService.registerTransaction(username, -1L));
+    }
+
+    @Test
+    public void testGetTransactionsByUsername() {
+
+        String username = "Test_" + userIdCounter++;
+        createUser(username);
+        String itemName = "TestItem_" + itemIdCounter++;
+        Long itemId = itemService.createItem(itemName);
+
+        Transaction transaction = transactionService.registerTransaction(username, itemId);
+
+        User userWithTransaction = userService.getUser(username, true);
+        PlaceholderItem itemWithTransaction = itemService.getItem(itemId, true);
+        assertEquals(1, userWithTransaction.getTransactions().size());
+        assertEquals(1, itemWithTransaction.getTransactions().size());
+
+        List<Transaction> transactions = transactionService.getTransactionsByUsername(username);
+        assertEquals(1, transactions.size());
+    }
+
+    @Test
+    public void testGetTransactionsByItemId() {
+
+        String username = "Test_" + userIdCounter++;
+        createUser(username);
+        String itemName = "TestItem_" + itemIdCounter++;
+        Long itemId = itemService.createItem(itemName);
+
+        Transaction transaction = transactionService.registerTransaction(username, itemId);
+
+        User userWithTransaction = userService.getUser(username, true);
+        PlaceholderItem itemWithTransaction = itemService.getItem(itemId, true);
+        assertEquals(1, userWithTransaction.getTransactions().size());
+        assertEquals(1, itemWithTransaction.getTransactions().size());
+
+        List<Transaction> transactions = transactionService.getTransactionsByItemId(itemId);
+        assertEquals(1, transactions.size());
+
     }
 
 }
