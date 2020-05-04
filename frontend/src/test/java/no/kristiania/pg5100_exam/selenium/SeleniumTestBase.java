@@ -3,6 +3,7 @@ package no.kristiania.pg5100_exam.selenium;
 import no.kristiania.pg5100_exam.selenium.po.IndexPO;
 import no.kristiania.pg5100_exam.selenium.po.LogInPO;
 import no.kristiania.pg5100_exam.selenium.po.SignUpPO;
+import no.kristiania.pg5100_exam.selenium.po.ui.ProfilePO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -62,6 +63,24 @@ public abstract class SeleniumTestBase {
     }
 
     @Test
+    public void testFailCreateUser() {
+        assertFalse(home.isLoggedIn());
+
+        String username = getUniqueId();
+        String password = "12345";
+
+        SignUpPO po = home.toSignUp();
+        assertTrue(po.isOnPage());
+
+        po.setText("username", username);
+        po.setText("password", password);
+        po.setText("confirm-password", password + 1);
+        po.clickAndWait("submit-btn");
+
+        assertTrue(po.getDriver().getPageSource().contains("Passwords do not match"));
+    }
+
+    @Test
     public void testDoLogoutAndLogIn() {
 
         assertFalse(home.isLoggedIn());
@@ -81,6 +100,24 @@ public abstract class SeleniumTestBase {
         home = logInPO.doLogIn(username, password);
         assertTrue(home.isLoggedIn());
         assertTrue(home.getDriver().getPageSource().contains(username));
+
+    }
+
+    @Test
+    public void testUserProfile() {
+
+        assertFalse(home.isLoggedIn());
+
+        String username = getUniqueId();
+        String password = "12345";
+
+        home = createNewUser(username, password);
+        assertTrue(home.isLoggedIn());
+        assertTrue(home.getDriver().getPageSource().contains(username));
+
+        ProfilePO po = home.toProfile();
+        assertTrue(po.isOnPage());
+        assertFalse(po.hasTransactions());
 
     }
 }

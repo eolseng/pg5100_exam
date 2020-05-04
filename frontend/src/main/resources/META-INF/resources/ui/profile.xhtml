@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:sec="http://www.springframework.org/security/tags"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 >
@@ -18,13 +17,14 @@
             <p><h:outputText value="Roles: #{userInfoController.roles}"/></p>
             <p><h:outputText value="Items: #{userInfoController.transactions.size()}"/></p>
         </div>
+
         <h2>My transactions:</h2>
         <div class="round-border">
             <c:choose>
                 <c:when test="#{userInfoController.transactions.size() > 0}">
-                    <div class="items-container">
+                    <div class="transactions-container">
                         <c:forEach var="transaction" items="#{userInfoController.transactions}">
-                            <div class="item-container">
+                            <div class="transaction-container">
                                 <p><h:outputText value="Item name: #{transaction.item.name}"/></p>
                                 <p><h:outputText value="Purchased at: #{transaction.createdAt}"/></p>
                             </div>

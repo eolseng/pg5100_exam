@@ -13,14 +13,16 @@
         <h2>Log in:</h2>
         <h:form prependId="false">
             <div class="form-container">
+
+                <p><h:outputText value="Username: "/></p>
+                <h:inputText id="username" value="#{signUpController.username}" class="form-input"/>
+                <p><h:outputText value="Password: "/></p>
+                <h:inputSecret id="password" value="#{signUpController.password}" class="form-input"/>
+
                 <div class="error-msg">
                     <h:outputLabel value="Wrong username and/or password"
                                    rendered="${!empty param['error']}"/>
                 </div>
-                <h:outputText value="Username:"/>
-                <h:inputText id="username" class="form-input"/>
-                <h:outputText value="Password:"/>
-                <h:inputSecret id="password" class="form-input"/>
 
                 <h:commandButton id="submit" value="Log In" class="btn btn-m"/>
             </div>

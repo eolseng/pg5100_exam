@@ -27,6 +27,7 @@ public class SignUpController {
 
     private String username;
     private String password;
+    private String confirmPassword;
 
     public String signUpUser() {
 
@@ -35,6 +36,10 @@ public class SignUpController {
             user = userService.createUser(username, password);
         } catch (Exception e) {
             user = null;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            return "/signup.jsf?faces-redirect=true&confirmed=false";
         }
 
         if (user != null) {
@@ -69,5 +74,13 @@ public class SignUpController {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

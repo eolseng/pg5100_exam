@@ -19,9 +19,21 @@
         </sec:authenticated>
 
         <sec:anonymous>
+
+            <h2>Our amazing items:</h2>
+            <div class="items-container">
+                <c:forEach var="item" items="#{itemInfoController.allItems}">
+                    <div class="item-container">
+                        <p><h:outputText value="Name: #{item.name}"/></p>
+                    </div>
+                </c:forEach>
+            </div>
+
+
             <p>Please sign up or log in to use the service.</p>
             <div>
-                <a href="${pageContext.request.contextPath}/signup.jsf" id="toSignup-btn" class="btn btn-m btn-cta">SIGN UP</a>
+                <a href="${pageContext.request.contextPath}/signup.jsf" id="toSignup-btn"
+                   class="btn btn-m btn-cta">SIGN UP</a>
                 <a href="${pageContext.request.contextPath}/login.jsf" id="toLogin-btn" class="btn btn-m">LOG IN</a>
             </div>
         </sec:anonymous>

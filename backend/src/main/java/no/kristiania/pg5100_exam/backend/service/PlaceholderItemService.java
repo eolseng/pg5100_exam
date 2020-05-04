@@ -36,12 +36,12 @@ public class PlaceholderItemService {
         return item;
     }
 
-    public List<PlaceholderItem> getAllItems(boolean withOwners) {
+    public List<PlaceholderItem> getAllItems(boolean withTransactions) {
 
         TypedQuery<PlaceholderItem> query = em.createQuery("SELECT i FROM PlaceholderItem i", PlaceholderItem.class);
         List<PlaceholderItem> items = query.getResultList();
 
-        if(withOwners && items != null) {
+        if(withTransactions && items != null) {
             items.forEach(item -> Hibernate.initialize(item.getTransactions()));
         }
 

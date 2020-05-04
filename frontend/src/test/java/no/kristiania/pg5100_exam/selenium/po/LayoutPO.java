@@ -1,6 +1,7 @@
 package no.kristiania.pg5100_exam.selenium.po;
 
 import no.kristiania.pg5100_exam.selenium.PageObject;
+import no.kristiania.pg5100_exam.selenium.po.ui.ProfilePO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -31,6 +32,16 @@ public abstract class LayoutPO extends PageObject {
         clickAndWait("toLogIn-btn");
 
         LogInPO po = new LogInPO(this);
+        assertTrue(po.isOnPage());
+
+        return po;
+    }
+
+    public ProfilePO toProfile() {
+
+        clickAndWait("toProfile-btn");
+
+        ProfilePO po = new ProfilePO(this);
         assertTrue(po.isOnPage());
 
         return po;

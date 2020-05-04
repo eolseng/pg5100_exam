@@ -17,6 +17,7 @@ public class SignUpPO extends LayoutPO {
 
         setText("username", username);
         setText("password", password);
+        setText("confirm-password", password);
         clickAndWait("submit-btn");
 
         IndexPO po = new IndexPO(this);

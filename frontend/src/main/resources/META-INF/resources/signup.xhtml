@@ -13,15 +13,20 @@
         <h2>Sign up:</h2>
         <h:form prependId="false">
             <div class="form-container">
-                <div class="error-msg">
-                    <h:outputLabel value="Wrong username and/or password"
-                                   rendered="${!empty param['error']}"/>
-                </div>
-                <h:outputText value="Username:"/>
+
+                <p><h:outputText value="Username: "/></p>
                 <h:inputText id="username" value="#{signUpController.username}" class="form-input"/>
-                <h:outputText value="Password:"/>
+                <p><h:outputText value="Password: "/></p>
                 <h:inputSecret id="password" value="#{signUpController.password}" class="form-input"/>
-                <!-- TODO: Add "Confirm password" -->
+                <p><h:outputText value="Confirm password: "/></p>
+                <h:inputSecret id="confirm-password" value="#{signUpController.confirmPassword}" class="form-input"/>
+
+                <div class="error-msg">
+                    <h:outputLabel value="ERROR: Wrong username and/or password"
+                                   rendered="${!empty param['error']}"/>
+                    <h:outputLabel value="ERROR: Passwords do not match"
+                                   rendered="${!empty param['confirmed']}"/>
+                </div>
 
                 <h:commandButton id="submit-btn" value="Sign Up" action="#{signUpController.signUpUser}" class="btn btn-m"/>
             </div>
