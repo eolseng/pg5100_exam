@@ -199,7 +199,7 @@
                         <forkCount>1</forkCount>
                         <redirectTestOutputToFile>true</redirectTestOutputToFile>
                         <rerunFailingTestsCount>3</rerunFailingTestsCount>
-                        <argLine>@{argLine} -Xms512m -Xmx4096m</argLine>
+                        <argLine>${argLine} -Xms512m -Xmx4096m</argLine>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -211,7 +211,7 @@
                         <forkCount>1</forkCount>
                         <redirectTestOutputToFile>true</redirectTestOutputToFile>
                         <rerunFailingTestsCount>3</rerunFailingTestsCount>
-                        <argLine>@{argLine} -Xms512m -Xmx4096m</argLine>
+                        <argLine>${argLine} -Xms512m -Xmx4096m</argLine>
                     </configuration>
                     <executions>
                         <execution>
