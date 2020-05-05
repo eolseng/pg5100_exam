@@ -29,7 +29,7 @@ class PlaceholderItemServiceTest extends ServiceTestBase {
     public void testGetItem() {
 
         String itemName = "Test_" + itemIdCounter++;
-        Long itemId = itemService.createItem(itemName);
+        Long itemId = itemService.createItem(itemName, 0L);
         assertNotNull(itemId);
 
         PlaceholderItem item = itemService.getItem(itemId, false);
@@ -40,7 +40,7 @@ class PlaceholderItemServiceTest extends ServiceTestBase {
     @Test
     public void testGetAllItems() {
         String itemName = "Test_" + itemIdCounter++;
-        Long itemId = itemService.createItem(itemName);
+        Long itemId = itemService.createItem(itemName, 0L);
         assertNotNull(itemId);
 
         List<PlaceholderItem> items = itemService.getAllItems(false);

@@ -15,6 +15,7 @@
         <div class="round-border">
             <p><h:outputText value="Name: #{userInfoController.username}"/></p>
             <p><h:outputText value="Roles: #{userInfoController.roles}"/></p>
+            <p><h:outputText value="Money: $#{userInfoController.money}"/></p>
             <p><h:outputText value="Items: #{userInfoController.transactions.size()}"/></p>
         </div>
 
@@ -27,12 +28,21 @@
                             <div class="transaction-container">
                                 <p><h:outputText value="Item name: #{transaction.item.name}"/></p>
                                 <p><h:outputText value="Purchased at: #{transaction.createdAt}"/></p>
+                                <h:form prependId="false">
+                                    <h:commandButton
+                                            value="Sell"
+                                            action="#{transactionController.sellItem(transaction.id)}"
+                                            onclick="location.reload()"
+                                            class="transaction-btn sell-btn"
+                                            id="sell-btn-#{transaction.id}"
+                                    />
+                                </h:form>
                             </div>
                         </c:forEach>
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <p>You don't have any transactions yet.</p>
+                    <p>You don't have any transactions.</p>
                 </c:otherwise>
             </c:choose>
         </div>

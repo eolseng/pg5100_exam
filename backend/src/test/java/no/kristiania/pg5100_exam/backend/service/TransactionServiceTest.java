@@ -45,7 +45,7 @@ class TransactionServiceTest extends ServiceTestBase {
         createUser(username);
 
         String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createItem(itemName);
+        Long itemId = itemService.createItem(itemName, 0L);
 
         Transaction transaction = transactionService.registerTransaction(username, itemId);
 
@@ -62,7 +62,7 @@ class TransactionServiceTest extends ServiceTestBase {
         String username = "Test_" + userIdCounter++;
 //        createUser(username);
         String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createItem(itemName);
+        Long itemId = itemService.createItem(itemName, 0L);
         assertThrows(IllegalArgumentException.class, () -> transactionService.registerTransaction(username, itemId));
     }
 
@@ -79,7 +79,7 @@ class TransactionServiceTest extends ServiceTestBase {
         String username = "Test_" + userIdCounter++;
         createUser(username);
         String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createItem(itemName);
+        Long itemId = itemService.createItem(itemName, 0L);
 
         Transaction transaction = transactionService.registerTransaction(username, itemId);
 
@@ -98,7 +98,7 @@ class TransactionServiceTest extends ServiceTestBase {
         String username = "Test_" + userIdCounter++;
         createUser(username);
         String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createItem(itemName);
+        Long itemId = itemService.createItem(itemName, 0L);
 
         Transaction transaction = transactionService.registerTransaction(username, itemId);
 

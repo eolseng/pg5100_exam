@@ -1,7 +1,9 @@
 package no.kristiania.pg5100_exam.backend.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Entity
@@ -13,10 +15,15 @@ public class PlaceholderItem {
     private Long id;
 
     @NotNull
+    @Size(min = 3, max = 128)
+    @Column(unique = true)
     private String name;
 
     @OneToMany(mappedBy = "item")
     private List<Transaction> transactions;
+
+    @Min(0)
+    private Long cost;
 
     public PlaceholderItem() {
     }
@@ -43,5 +50,13 @@ public class PlaceholderItem {
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public Long getCost() {
+        return cost;
+    }
+
+    public void setCost(Long cost) {
+        this.cost = cost;
     }
 }

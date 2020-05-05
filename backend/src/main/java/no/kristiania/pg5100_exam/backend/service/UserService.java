@@ -37,6 +37,7 @@ public class UserService {
         user.setPassword(hashedPassword);
         user.setRoles(Collections.singleton("USER"));
         user.setEnabled(true);
+        user.setMoney(3000L);
 
         em.persist(user);
 

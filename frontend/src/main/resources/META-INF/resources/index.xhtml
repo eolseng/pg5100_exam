@@ -15,7 +15,22 @@
         <h2>Welcome to this amazing website</h2>
 
         <sec:authenticated>
-            <p>You are logged in</p>
+            <h2>Our amazing items:</h2>
+            <div class="items-container">
+                <c:forEach var="item" items="#{itemInfoController.allItems}">
+                    <div class="item-container">
+                        <p><h:outputText value="Name: #{item.name}"/></p>
+                        <h:form prependId="false">
+                        <h:commandButton
+                            value="Buy"
+                            action="#{transactionController.purchaseItem(item.id)}"
+                            class="transaction-btn buy-btn"
+                            id="purchase-btn-#{item.id}"
+                        />
+                        </h:form>
+                    </div>
+                </c:forEach>
+            </div>
         </sec:authenticated>
 
         <sec:anonymous>
@@ -28,7 +43,6 @@
                     </div>
                 </c:forEach>
             </div>
-
 
             <p>Please sign up or log in to use the service.</p>
             <div>

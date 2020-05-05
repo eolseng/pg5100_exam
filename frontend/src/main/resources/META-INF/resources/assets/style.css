@@ -204,3 +204,19 @@ body {
 
     background-color: var(--secondary-color);
 }
+
+.transaction-btn {
+    height: 40px;
+    width: 40px;
+
+    border: 1px solid black;
+    border-radius: 100%;
+}
+
+.buy-btn {
+    background: lightgreen;
+}
+
+.sell-btn {
+    background: lightcoral;
+}

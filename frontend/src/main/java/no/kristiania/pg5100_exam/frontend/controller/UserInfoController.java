@@ -1,9 +1,6 @@
 package no.kristiania.pg5100_exam.frontend.controller;
 
-import no.kristiania.pg5100_exam.backend.entity.PlaceholderItem;
 import no.kristiania.pg5100_exam.backend.entity.Transaction;
-import no.kristiania.pg5100_exam.backend.entity.User;
-import no.kristiania.pg5100_exam.backend.service.TransactionService;
 import no.kristiania.pg5100_exam.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +24,10 @@ public class UserInfoController {
 
     public List<String> getRoles() {
         return new ArrayList<>(userService.getUser(getUsername(), false).getRoles());
+    }
+
+    public Long getMoney() {
+        return userService.getUser(getUsername(), false).getMoney();
     }
 
     public List<Transaction> getTransactions() {

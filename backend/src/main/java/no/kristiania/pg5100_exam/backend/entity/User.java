@@ -1,8 +1,7 @@
 package no.kristiania.pg5100_exam.backend.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Set;
 
@@ -12,9 +11,11 @@ public class User {
 
     @Id
     @NotBlank
+    @Size(min = 3, max = 128)
     private String username;
 
     @NotBlank
+    @Size(min = 3, max = 128)
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -25,6 +26,10 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Transaction> transactions;
+
+    @NotNull
+    @Min(0)
+    private Long money;
 
     public String getUsername() {
         return username;
@@ -64,5 +69,13 @@ public class User {
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public Long getMoney() {
+        return money;
+    }
+
+    public void setMoney(Long money) {
+        this.money = money;
     }
 }

@@ -22,6 +22,13 @@ public class TransactionService {
     @Autowired
     private TransactionRepository repository;
 
+    public Boolean validateTransaction(String username, Long itemId) {
+        User user = em.find(User.class, username);
+        PlaceholderItem item = em.find(PlaceholderItem.class, itemId);
+
+        return user != null && item != null && item.getCost() <= user.getMoney();
+    }
+
     public Transaction registerTransaction(String username, Long itemId) {
 
         User user = em.find(User.class, username);
@@ -34,6 +41,15 @@ public class TransactionService {
             throw new IllegalArgumentException("No existing item: " + itemId);
         }
 
+        if (!validateTransaction(username, itemId)) {
+            throw new IllegalArgumentException("User does not have enough money");
+        }
+
+        // Set new balance
+        Long newBalance = user.getMoney() - item.getCost();
+        user.setMoney(newBalance);
+
+        // Persist transaction
         Transaction transaction = new Transaction();
         transaction.setCreatedAt(new Date());
         transaction.setUser(user);
@@ -42,6 +58,20 @@ public class TransactionService {
 
         return transaction;
     }
+
+    public void removeTransaction(Long transactionId) {
+
+        Transaction transaction = em.find(Transaction.class, transactionId);
+        if (transaction == null) {
+            throw new IllegalArgumentException("Transaction does not exist: " + transactionId);
+        }
+
+        Long newBalance = transaction.getUser().getMoney() + transaction.getItem().getCost();
+        transaction.getUser().setMoney(newBalance);
+
+        repository.deleteById(transactionId);
+
+        }
 
     public List<Transaction> getTransactionsByUsername(String username) {
         return repository.findAllByUsername(username);

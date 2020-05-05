@@ -17,10 +17,11 @@ public class PlaceholderItemService {
     @Autowired
     private EntityManager em;
 
-    public Long createItem(String name) {
+    public Long createItem(String name, Long cost) {
 
         PlaceholderItem item = new PlaceholderItem();
         item.setName(name);
+        item.setCost(cost);
 
         em.persist(item);
 
