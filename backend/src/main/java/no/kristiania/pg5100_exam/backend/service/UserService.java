@@ -26,8 +26,12 @@ public class UserService {
 
         String hashedPassword = passwordEncoder.encode(password);
 
-        // Username must be unique
-        if (repo.existsById(username)){
+        if (password.length() < User.MIN_PASSWORD_LENGTH) {
+            throw new IllegalArgumentException("Password is too short. Must be at least " + User.MIN_PASSWORD_LENGTH + " long.");
+        }
+
+        if (repo.existsById(username)) {
+            // Username must be unique
             throw new IllegalArgumentException("A user with that username already exists: " + username);
         }
 
@@ -36,7 +40,7 @@ public class UserService {
         user.setPassword(hashedPassword);
         user.setRoles(Collections.singleton("USER"));
         user.setEnabled(true);
-        user.setMoney(3000L);
+        user.setMoney(User.STARTING_MONEY);
         repo.save(user);
 
         return user;
@@ -45,7 +49,7 @@ public class UserService {
     public User getUser(String username, boolean withBookings) {
 
         Optional<User> user = repo.findById(username);
-        if(user.isEmpty()) {
+        if (user.isEmpty()) {
             throw new IllegalArgumentException("Username does not exists: " + username);
         }
         if (withBookings) {
@@ -64,7 +68,20 @@ public class UserService {
         return users;
     }
 
-    public Boolean existsById(String username) {
-        return repo.existsById(username);
+    public Boolean existsByUsername(String username) {
+        return repo.existsByUsername(username);
+    }
+
+    public void updatePassword(String username, String password) {
+
+        String hashedPassword = passwordEncoder.encode(password);
+
+        if (password.length() < User.MIN_PASSWORD_LENGTH) {
+            throw new IllegalArgumentException("Password is too short. Must be at least " + User.MIN_PASSWORD_LENGTH + " long.");
+        }
+
+        User user = getUser(username, false);
+        user.setPassword(hashedPassword);
+
     }
 }

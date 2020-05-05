@@ -9,13 +9,16 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
 
+    public static final int MIN_PASSWORD_LENGTH = 3;
+    public static final Long STARTING_MONEY = 3000L;
+
     @Id
     @NotBlank
     @Size(min = 3, max = 128)
     private String username;
 
     @NotBlank
-    @Size(min = 3, max = 128)
+    @Size(min = MIN_PASSWORD_LENGTH, max = 128)
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)

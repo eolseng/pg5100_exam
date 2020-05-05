@@ -155,12 +155,10 @@
                         <processTypes>
                             <web>java -Dserver.port=$PORT -jar target/pg5100_exam-exec.jar</web>
                         </processTypes>
+                        <jdkVersion>11</jdkVersion>
                     </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
-
-
-
 </project>
