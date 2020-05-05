@@ -1,9 +1,7 @@
 package no.kristiania.pg5100_exam.frontend.controller;
 
-import no.kristiania.pg5100_exam.backend.service.TransactionService;
+import no.kristiania.pg5100_exam.backend.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -13,18 +11,18 @@ import javax.inject.Named;
 public class TransactionController {
 
     @Autowired
-    TransactionService service;
+    BookingService service;
 
     @Autowired
     UserInfoController infoController;
 
     public void purchaseItem(Long itemId) {
         String username = infoController.getUsername();
-        service.registerTransaction(username, itemId);
+        service.registerBooking(username, itemId);
     }
 
     public String sellItem(Long transactionId) {
-        service.removeTransaction(transactionId);
+        service.cancelBooking(transactionId);
         return "/ui/profile.jsf?faces-redirect=true";
     }
 

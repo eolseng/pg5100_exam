@@ -278,23 +278,6 @@
                     </executions>
                 </plugin>
 
-                <!-- For cloud deployment on Heroku -->
-                <plugin>
-                    <groupId>com.heroku.sdk</groupId>
-                    <artifactId>heroku-maven-plugin</artifactId>
-                    <version>${version.heroku}</version>
-                    <configuration>
-                        <appName>${project.name}</appName>
-                        <includeTarget>false</includeTarget>
-                        <includes>
-                            <include>target/${project.name}-exec.jar</include>
-                        </includes>
-                        <processTypes>
-                            <web>java -Dserver.port=$PORT -jar target/${project.name}-exec.jar</web>
-                        </processTypes>
-                    </configuration>
-                </plugin>
-
                 <!-- For scanning dependencies for known security issues -->
                 <plugin>
                     <groupId>org.owasp</groupId>

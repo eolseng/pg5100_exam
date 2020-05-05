@@ -2,7 +2,8 @@
 
 package no.kristiania.pg5100_exam.backend.service;
 
-import no.kristiania.pg5100_exam.backend.entity.PlaceholderItem;
+import no.kristiania.pg5100_exam.backend.entity.Booking;
+import no.kristiania.pg5100_exam.backend.entity.Trip;
 import no.kristiania.pg5100_exam.backend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,15 +21,14 @@ public class ResetService {
     private EntityManager em;
 
     private Class<?>[] entityList = new Class[]{
+            Booking.class,
             User.class,
-            PlaceholderItem.class
+            Trip.class
     };
 
     public void resetDatabase() {
 
-        Query query = em.createNativeQuery("" +
-                "DELETE FROM user_roles;" +
-                "DELETE FROM transactions");
+        Query query = em.createNativeQuery("DELETE FROM user_roles;");
         query.executeUpdate();
 
         for (Class<?> entity : entityList) {

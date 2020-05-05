@@ -1,14 +1,12 @@
 package no.kristiania.pg5100_exam.backend.entity;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.List;
 
 @Entity
-@Table(name = "placeholder_item")
-public class PlaceholderItem {
+@Table(name = "trips")
+public class Trip {
 
     @Id
     @GeneratedValue
@@ -19,13 +17,13 @@ public class PlaceholderItem {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "item")
-    private List<Transaction> transactions;
+    @OneToMany(mappedBy = "trip")
+    private List<Booking> bookings;
 
     @Min(0)
     private Long cost;
 
-    public PlaceholderItem() {
+    public Trip() {
     }
 
     public Long getId() {
@@ -44,12 +42,12 @@ public class PlaceholderItem {
         this.name = name;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     public Long getCost() {

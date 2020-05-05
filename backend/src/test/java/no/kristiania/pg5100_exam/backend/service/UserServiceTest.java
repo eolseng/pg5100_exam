@@ -24,9 +24,6 @@ class UserServiceTest extends ServiceTestBase {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PlaceholderItemService itemService;
-
     @Test
     public void testGetUser() {
 
@@ -35,8 +32,8 @@ class UserServiceTest extends ServiceTestBase {
 
         userService.createUser(username, password);
         List<User> users = userService.getAllUsers(false);
-
         assertTrue(users.size() > 0);
+
     }
 
     @Test

@@ -1,35 +1,34 @@
 package no.kristiania.pg5100_exam.backend.service;
 
-import no.kristiania.pg5100_exam.backend.entity.PlaceholderItem;
 import no.kristiania.pg5100_exam.backend.entity.User;
+import no.kristiania.pg5100_exam.backend.repository.UserRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class UserService {
 
     @Autowired
-    private EntityManager em;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserRepository repo;
 
     public User createUser(String username, String password) {
 
         String hashedPassword = passwordEncoder.encode(password);
 
-        // Check if user already exists
-        if (em.find(User.class, username) != null) {
-            return null;
+        // Username must be unique
+        if (repo.existsById(username)){
+            throw new IllegalArgumentException("A user with that username already exists: " + username);
         }
 
         User user = new User();
@@ -38,33 +37,34 @@ public class UserService {
         user.setRoles(Collections.singleton("USER"));
         user.setEnabled(true);
         user.setMoney(3000L);
-
-        em.persist(user);
-
-        return user;
-    }
-
-    public User getUser(String username, boolean withTransactions) {
-
-        User user = em.find(User.class, username);
-
-        if (withTransactions && user != null) {
-            Hibernate.initialize(user.getTransactions());
-        }
+        repo.save(user);
 
         return user;
     }
 
-    public List<User> getAllUsers(boolean withItems) {
+    public User getUser(String username, boolean withBookings) {
 
-        TypedQuery<User> query = em.createQuery("SELECT user FROM User user", User.class);
-        List<User> users = query.getResultList();
-
-        if (withItems && users != null) {
-            users.forEach(user -> Hibernate.initialize(user.getTransactions()));
+        Optional<User> user = repo.findById(username);
+        if(user.isEmpty()) {
+            throw new IllegalArgumentException("Username does not exists: " + username);
+        }
+        if (withBookings) {
+            Hibernate.initialize(user.get().getBookings());
         }
 
+        return user.get();
+    }
+
+    public List<User> getAllUsers(boolean withBookings) {
+
+        List<User> users = repo.findAll();
+        if (withBookings) {
+            users.forEach(user -> Hibernate.initialize(user.getBookings()));
+        }
         return users;
+    }
 
+    public Boolean existsById(String username) {
+        return repo.existsById(username);
     }
 }

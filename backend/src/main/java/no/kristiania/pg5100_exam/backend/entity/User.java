@@ -25,7 +25,7 @@ public class User {
     private Boolean enabled;
 
     @OneToMany(mappedBy = "user")
-    private List<Transaction> transactions;
+    private List<Booking> bookings;
 
     @NotNull
     @Min(0)
@@ -63,12 +63,12 @@ public class User {
         this.enabled = enabled;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     public Long getMoney() {

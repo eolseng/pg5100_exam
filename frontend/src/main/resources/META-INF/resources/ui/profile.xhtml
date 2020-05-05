@@ -16,25 +16,25 @@
             <p><h:outputText value="Name: #{userInfoController.username}"/></p>
             <p><h:outputText value="Roles: #{userInfoController.roles}"/></p>
             <p><h:outputText value="Money: $#{userInfoController.money}"/></p>
-            <p><h:outputText value="Items: #{userInfoController.transactions.size()}"/></p>
+            <p><h:outputText value="Items: #{userInfoController.bookings.size()}"/></p>
         </div>
 
-        <h2>My transactions:</h2>
+        <h2>My bookings:</h2>
         <div class="round-border">
             <c:choose>
-                <c:when test="#{userInfoController.transactions.size() > 0}">
-                    <div class="transactions-container">
-                        <c:forEach var="transaction" items="#{userInfoController.transactions}">
-                            <div class="transaction-container">
-                                <p><h:outputText value="Item name: #{transaction.item.name}"/></p>
-                                <p><h:outputText value="Purchased at: #{transaction.createdAt}"/></p>
+                <c:when test="#{userInfoController.bookings.size() > 0}">
+                    <div class="bookings-container">
+                        <c:forEach var="booking" items="#{userInfoController.bookings}">
+                            <div class="booking-container">
+                                <p><h:outputText value="Item name: #{booking.item.name}"/></p>
+                                <p><h:outputText value="Purchased at: #{booking.createdAt}"/></p>
                                 <h:form prependId="false">
                                     <h:commandButton
                                             value="Sell"
-                                            action="#{transactionController.sellItem(transaction.id)}"
+                                            action="#{transactionController.sellItem(booking.id)}"
                                             onclick="location.reload()"
-                                            class="transaction-btn sell-btn"
-                                            id="sell-btn-#{transaction.id}"
+                                            class="booking-btn sell-btn"
+                                            id="sell-btn-#{booking.id}"
                                     />
                                 </h:form>
                             </div>
@@ -42,7 +42,7 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <p>You don't have any transactions.</p>
+                    <p>You don't have any bookings.</p>
                 </c:otherwise>
             </c:choose>
         </div>

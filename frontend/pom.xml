@@ -20,7 +20,6 @@
             <artifactId>backend</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <!-- Spring dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -42,7 +41,6 @@
             <groupId>org.joinfaces</groupId>
             <artifactId>jsf-spring-boot-starter</artifactId>
         </dependency>
-
         <!-- Javax dependencies -->
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -52,7 +50,6 @@
             <groupId>javax.servlet.jsp.jstl</groupId>
             <artifactId>javax.servlet.jsp.jstl-api</artifactId>
         </dependency>
-
         <!-- Database dependencies -->
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -62,7 +59,6 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-
         <!-- General testing dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -72,7 +68,6 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
         </dependency>
-
         <!-- Selenium dependencies -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -94,7 +89,6 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-support</artifactId>
         </dependency>
-
         <!-- Docker dependencies -->
         <dependency>
             <groupId>org.testcontainers</groupId>
@@ -108,11 +102,23 @@
 
     <build>
         <plugins>
+            <!-- Spring Plugins -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>pg5100_exam</finalName>
+                    <classifier>exec</classifier>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-
+            <!-- Test Plugins -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -126,6 +132,29 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <!-- For cloud deployment on Heroku -->
+                <plugin>
+                    <groupId>com.heroku.sdk</groupId>
+                    <artifactId>heroku-maven-plugin</artifactId>
+                    <version>${version.heroku}</version>
+                    <configuration>
+                        <appName>pg5100-exam</appName>
+                        <includeTarget>false</includeTarget>
+                        <includes>
+                            <include>target/pg5100_exam-exec.jar</include>
+                        </includes>
+                        <processTypes>
+                            <web>java -Dserver.port=$PORT -jar target/pg5100_exam-exec.jar</web>
+                        </processTypes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
+
+
 
 </project>

@@ -1,8 +1,8 @@
 package no.kristiania.pg5100_exam.backend.service;
 
 import no.kristiania.pg5100_exam.backend.StubApplication;
-import no.kristiania.pg5100_exam.backend.entity.PlaceholderItem;
-import no.kristiania.pg5100_exam.backend.entity.Transaction;
+import no.kristiania.pg5100_exam.backend.entity.Trip;
+import no.kristiania.pg5100_exam.backend.entity.Booking;
 import no.kristiania.pg5100_exam.backend.entity.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
         classes = StubApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
-class TransactionServiceTest extends ServiceTestBase {
+class BookingServiceTest extends ServiceTestBase {
 
     private int userIdCounter = 0;
     private int itemIdCounter = 0;
@@ -28,10 +28,10 @@ class TransactionServiceTest extends ServiceTestBase {
     UserService userService;
 
     @Autowired
-    PlaceholderItemService itemService;
+    TripService itemService;
 
     @Autowired
-    TransactionService transactionService;
+    BookingService bookingService;
 
     private User createUser(String username) {
         return userService.createUser(username, "bar");
@@ -45,15 +45,15 @@ class TransactionServiceTest extends ServiceTestBase {
         createUser(username);
 
         String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createItem(itemName, 0L);
+        Long itemId = itemService.createTrip(itemName, 0L);
 
-        Transaction transaction = transactionService.registerTransaction(username, itemId);
+        Booking booking = bookingService.registerBooking(username, itemId);
 
         User userWithTransaction = userService.getUser(username, true);
-        PlaceholderItem itemWithTransaction = itemService.getItem(itemId, true);
+        Trip itemWithTransaction = itemService.getTrip(itemId, true);
 
-        assertEquals(1, userWithTransaction.getTransactions().size());
-        assertEquals(1, itemWithTransaction.getTransactions().size());
+        assertEquals(1, userWithTransaction.getBookings().size());
+        assertEquals(1, itemWithTransaction.getBookings().size());
 
     }
 
@@ -62,15 +62,15 @@ class TransactionServiceTest extends ServiceTestBase {
         String username = "Test_" + userIdCounter++;
 //        createUser(username);
         String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createItem(itemName, 0L);
-        assertThrows(IllegalArgumentException.class, () -> transactionService.registerTransaction(username, itemId));
+        Long itemId = itemService.createTrip(itemName, 0L);
+        assertThrows(IllegalArgumentException.class, () -> bookingService.registerBooking(username, itemId));
     }
 
     @Test
     public void testInvalidItem() {
         String username = "Test_" + userIdCounter++;
         createUser(username);
-        assertThrows(IllegalArgumentException.class, () -> transactionService.registerTransaction(username, -1L));
+        assertThrows(IllegalArgumentException.class, () -> bookingService.registerBooking(username, -1L));
     }
 
     @Test
@@ -79,17 +79,17 @@ class TransactionServiceTest extends ServiceTestBase {
         String username = "Test_" + userIdCounter++;
         createUser(username);
         String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createItem(itemName, 0L);
+        Long itemId = itemService.createTrip(itemName, 0L);
 
-        Transaction transaction = transactionService.registerTransaction(username, itemId);
+        Booking booking = bookingService.registerBooking(username, itemId);
 
         User userWithTransaction = userService.getUser(username, true);
-        PlaceholderItem itemWithTransaction = itemService.getItem(itemId, true);
-        assertEquals(1, userWithTransaction.getTransactions().size());
-        assertEquals(1, itemWithTransaction.getTransactions().size());
+        Trip itemWithTransaction = itemService.getTrip(itemId, true);
+        assertEquals(1, userWithTransaction.getBookings().size());
+        assertEquals(1, itemWithTransaction.getBookings().size());
 
-        List<Transaction> transactions = transactionService.getTransactionsByUsername(username);
-        assertEquals(1, transactions.size());
+        List<Booking> bookings = bookingService.getTransactionsByUsername(username);
+        assertEquals(1, bookings.size());
     }
 
     @Test
@@ -98,17 +98,17 @@ class TransactionServiceTest extends ServiceTestBase {
         String username = "Test_" + userIdCounter++;
         createUser(username);
         String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createItem(itemName, 0L);
+        Long itemId = itemService.createTrip(itemName, 0L);
 
-        Transaction transaction = transactionService.registerTransaction(username, itemId);
+        Booking booking = bookingService.registerBooking(username, itemId);
 
         User userWithTransaction = userService.getUser(username, true);
-        PlaceholderItem itemWithTransaction = itemService.getItem(itemId, true);
-        assertEquals(1, userWithTransaction.getTransactions().size());
-        assertEquals(1, itemWithTransaction.getTransactions().size());
+        Trip itemWithTransaction = itemService.getTrip(itemId, true);
+        assertEquals(1, userWithTransaction.getBookings().size());
+        assertEquals(1, itemWithTransaction.getBookings().size());
 
-        List<Transaction> transactions = transactionService.getTransactionsByItemId(itemId);
-        assertEquals(1, transactions.size());
+        List<Booking> bookings = bookingService.getTransactionsByItemId(itemId);
+        assertEquals(1, bookings.size());
 
     }
 

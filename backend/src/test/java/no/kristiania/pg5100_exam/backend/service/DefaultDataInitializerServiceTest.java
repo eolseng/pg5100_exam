@@ -1,8 +1,9 @@
 package no.kristiania.pg5100_exam.backend.service;
 
 import no.kristiania.pg5100_exam.backend.StubApplication;
-import no.kristiania.pg5100_exam.backend.entity.PlaceholderItem;
+import no.kristiania.pg5100_exam.backend.entity.Trip;
 import no.kristiania.pg5100_exam.backend.entity.User;
+import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_CLASS;
 
 @ExtendWith(SpringExtension.class)
@@ -30,7 +31,7 @@ class DefaultDataInitializerServiceTest extends ServiceTestBase {
     private UserService userService;
 
     @Autowired
-    private PlaceholderItemService itemService;
+    private TripService itemService;
 
     @Test
     public void testInit() {
@@ -40,10 +41,20 @@ class DefaultDataInitializerServiceTest extends ServiceTestBase {
 
         List<User> users = userService.getAllUsers(true);
         assertTrue(users.size() > 0);
-        assertTrue(users.get(0).getTransactions().size() > 0);
+        assertTrue(users.get(0).getBookings().size() > 0);
 
-        List<PlaceholderItem> items = itemService.getAllItems(true);
-        assertTrue(items.size() > 0);
-        assertTrue(items.get(0).getTransactions().size() > 0);
+        String username = users.get(0).getUsername();
+
+        assertThrows(LazyInitializationException.class, () ->
+                userService.getUser(username, false).getBookings().size()
+        );
+
+        User userWithBookings = userService.getUser(username, true);
+        assertTrue(userWithBookings.getBookings().size() > 0);
+
+
+        List<Trip> tripsWithBookings = itemService.getAllTrips(true);
+        assertTrue(tripsWithBookings.size() > 0);
+        assertTrue(tripsWithBookings.get(0).getBookings().size() > 0);
     }
 }

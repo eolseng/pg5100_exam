@@ -5,8 +5,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table(name = "transactions")
-public class Transaction {
+@Table(name = "bookings")
+public class Booking {
 
     @Id
     @GeneratedValue
@@ -18,13 +18,13 @@ public class Transaction {
 
     @NotNull
     @ManyToOne
-    private PlaceholderItem item;
+    private Trip trip;
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    public Transaction() {
+    public Booking() {
     }
 
     public Long getId() {
@@ -43,12 +43,12 @@ public class Transaction {
         this.user = user;
     }
 
-    public PlaceholderItem getItem() {
-        return item;
+    public Trip getTrip() {
+        return trip;
     }
 
-    public void setItem(PlaceholderItem item) {
-        this.item = item;
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 
     public Date getCreatedAt() {
@@ -64,7 +64,7 @@ public class Transaction {
         return "Transaction{" +
                 "id=" + id +
                 ", user=" + user +
-                ", item=" + item +
+                ", trip=" + trip +
                 ", createdAt=" + createdAt +
                 '}';
     }

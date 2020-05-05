@@ -14,10 +14,10 @@ public class DefaultDataInitializerService {
     private UserService userService;
 
     @Autowired
-    private PlaceholderItemService itemService;
+    private TripService itemService;
 
     @Autowired
-    private TransactionService transactionService;
+    private BookingService bookingService;
 
     @PostConstruct
     public void initialize() {
@@ -28,16 +28,16 @@ public class DefaultDataInitializerService {
         User user3 = attempt(() -> userService.createUser("Fus", "Ro'Dah"));
         assert user3 != null;
 
-        Long item1Id = attempt(() -> itemService.createItem("Pistol", 300L));
-        Long item2Id = attempt(() -> itemService.createItem("Dagger", 200L));
-        Long item3Id = attempt(() -> itemService.createItem("Whiskey", 500L));
+        Long item1Id = attempt(() -> itemService.createTrip("Pistol", 300L));
+        Long item2Id = attempt(() -> itemService.createTrip("Dagger", 200L));
+        Long item3Id = attempt(() -> itemService.createTrip("Whiskey", 500L));
 
-        attempt(() -> transactionService.registerTransaction(user1.getUsername(), item1Id));
-        attempt(() -> transactionService.registerTransaction(user1.getUsername(), item2Id));
-        attempt(() -> transactionService.registerTransaction(user1.getUsername(), item3Id));
-        attempt(() -> transactionService.registerTransaction(user2.getUsername(), item2Id));
-        attempt(() -> transactionService.registerTransaction(user2.getUsername(), item3Id));
-        attempt(() -> transactionService.registerTransaction(user3.getUsername(), item3Id));
+        attempt(() -> bookingService.registerBooking(user1.getUsername(), item1Id));
+        attempt(() -> bookingService.registerBooking(user1.getUsername(), item2Id));
+        attempt(() -> bookingService.registerBooking(user1.getUsername(), item3Id));
+        attempt(() -> bookingService.registerBooking(user2.getUsername(), item2Id));
+        attempt(() -> bookingService.registerBooking(user2.getUsername(), item3Id));
+        attempt(() -> bookingService.registerBooking(user3.getUsername(), item3Id));
     }
 
     private  <T> T attempt(Supplier<T> lambda){
