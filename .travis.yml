@@ -1,1 +1,32 @@
 language: java
+
+# The JDK we need for compiling
+jdk:
+  - openjdk11
+
+# "sudo" is a Linux/Bash command to execute other commands in super-user (ie "root")
+# mode. This is needed in Travis when using Docker
+sudo: true
+
+# Specify we need Docker for our build
+services:
+  - docker
+
+
+# As the build will download JAR files from Maven Central, optimize their storage,
+# so they do not get re-downloaded each time
+cache:
+  directories:
+    - .autoconf
+    - $HOME/.m2
+
+# Useful when working in team. If someone breaks the build (code does not compile
+# or some tests are failing), then get notified by email immediately.
+notifications:
+  email: true
+
+
+# The actual command we do for compiling.
+# Note: Travis has a quite limited handling of build log files, so need
+# to minimize them, ie do not be too verbose
+script: mvn clean verify --fae
