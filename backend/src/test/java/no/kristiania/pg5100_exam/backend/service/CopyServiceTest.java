@@ -21,9 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 )
 class CopyServiceTest extends ServiceTestBase {
 
-    private int userIdCounter = 0;
-    private int itemIdCounter = 0;
-
     @Autowired
     UserService userService;
 
@@ -33,26 +30,11 @@ class CopyServiceTest extends ServiceTestBase {
     @Autowired
     CopyService copyService;
 
-    private User createUser(String username) {
-        return userService.createUser(username, "bar");
-    }
-
-    private Long createRandomItem() {
-
-        int counter = itemIdCounter++;
-        String itemName = "Test_" + counter;
-        Long itemId = itemService.createItem(itemName, "This is the latin name " + counter, 1, "Very painful", 100);
-        assertNotNull(itemId);
-
-        return itemId;
-    }
-
-
     @Test
     public void testRegisterCopy() {
 
         String username = "Test_" + userIdCounter++;
-        createUser(username);
+        createUser(username, "bar");
 
         Long itemId = createRandomItem();
 
@@ -94,7 +76,7 @@ class CopyServiceTest extends ServiceTestBase {
     @Test
     public void testInvalidItem() {
         String username = "Test_" + userIdCounter++;
-        createUser(username);
+        createUser(username, "bar");
         assertThrows(IllegalArgumentException.class, () -> copyService.registerCopy(username, -1L));
     }
 
@@ -102,7 +84,7 @@ class CopyServiceTest extends ServiceTestBase {
     public void testGetCopiesByUsername() {
 
         String username = "Test_" + userIdCounter++;
-        createUser(username);
+        createUser(username, "bar");
         String itemName = "TestItem_" + itemIdCounter++;
         Long itemId = itemService.createItem(itemName, itemName, 1, "Very painful", 100);
 
@@ -121,7 +103,7 @@ class CopyServiceTest extends ServiceTestBase {
     public void testGetCopiesByItemId() {
 
         String username = "Test_" + userIdCounter++;
-        createUser(username);
+        createUser(username, "bar");
         String itemName = "TestItem_" + itemIdCounter++;
         Long itemId = itemService.createItem(itemName, itemName, 1, "Very painful", 100);
 
@@ -137,4 +119,39 @@ class CopyServiceTest extends ServiceTestBase {
 
     }
 
+    @Test
+    public void testMillCopy() {
+
+        String username = "Test_" + userIdCounter++;
+        User user = createUser(username, "bar");
+        Long itemId = createRandomItem();
+
+        Copy copy = copyService.registerCopy(username, itemId);
+        assertEquals(1, copy.getAmount());
+        copy = copyService.registerCopy(username, itemId);
+        assertEquals(2, copy.getAmount());
+
+        Long copyId = copy.getId();
+        Long userBalance = user.getBalance();
+
+        copyService.millCopy(copy.getId());
+        copy = copyService.getCopy(copyId);
+        user = userService.getUser(username, false);
+        assertEquals(1, copy.getAmount());
+        assertTrue(user.getBalance() > userBalance);
+
+        userBalance = user.getBalance();
+
+        copyService.millCopy(copy.getId());
+        user = userService.getUser(username, false);
+        assertThrows(IllegalArgumentException.class, () ->
+                copyService.getCopy(copyId)
+        );
+        assertTrue(user.getBalance() > userBalance);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                copyService.millCopy(copyId)
+        );
+
+    }
 }

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,20 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 )
 class ItemServiceTest extends ServiceTestBase {
 
-    private int itemIdCounter = 0;
-
     @Autowired
     private ItemService itemService;
-
-    private Long createRandomItem() {
-
-        int counter = itemIdCounter++;
-        String itemName = "Test_" + counter;
-        Long itemId = itemService.createItem(itemName, "This is the latin name " + counter, 1, "Very painful", 100);
-        assertNotNull(itemId);
-
-        return itemId;
-    }
 
     @Test
     public void testGetItem() {
@@ -79,7 +66,7 @@ class ItemServiceTest extends ServiceTestBase {
             Set<Long> ids = new HashSet<>();
 
             for (Item item : randomItems) {
-                if (ids.contains(item.getId())){
+                if (ids.contains(item.getId())) {
                     // Check if ID is already in the set - if so duplicates has been found
                     foundDuplicate = true;
                 }
