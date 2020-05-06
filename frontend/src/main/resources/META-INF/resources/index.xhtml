@@ -8,47 +8,51 @@
 >
 <ui:composition template="/layout.xhtml">
 
-    <ui:define name="title">TEST APPLICATION</ui:define>
+    <ui:define name="title">Schmidts Stinging Friends</ui:define>
 
     <ui:define name="content">
 
-        <h2>Welcome to Schmidts Stinging Friends</h2>
-
         <sec:authenticated>
-            <h2>Our amazing items:</h2>
-            <div class="items-container">
-                <c:forEach var="item" items="#{itemInfoController.allItems}">
-                    <div class="item-container">
-                        <p><h:outputText value="Name: #{item.name}"/></p>
-                        <h:form prependId="false">
-                        <h:commandButton
-                            value="Buy"
-                            action="#{transactionController.purchaseItem(item.id)}"
-                            class="copy-btn buy-btn"
-                            id="purchase-btn-#{item.id}"
-                        />
-                        </h:form>
-                    </div>
-                </c:forEach>
+            <h1>Welcome to Schmidts Stinging Friends, <h:outputText value="#{userInfoController.username}"/>!</h1>
+            <div>
+                <a href="${pageContext.request.contextPath}/ui/collection.jsf" id="toCollectionIndex-btn"
+                   class="btn btn-m">MY COLLECTION</a>
+                <a href="${pageContext.request.contextPath}/ui/profile.jsf" id="toProfileIndex-btn"
+                   class="btn btn-m">PROFILE</a>
             </div>
         </sec:authenticated>
 
         <sec:anonymous>
-
-            <h2>Our amazing items:</h2>
-            <div class="items-container">
-                <c:forEach var="item" items="#{itemInfoController.allItems}">
-                    <div class="item-container">
-                        <p><h:outputText value="Name: #{item.name}"/></p>
-                    </div>
-                </c:forEach>
-            </div>
-
-            <p>Please sign up or log in to use the service.</p>
+            <h1>Welcome to Schmidts Stinging Friends!</h1>
+            <p>Schmidts Stinging Friends is a Gacha-game based on 'The Schmidt Pain Index', developed by the entomologist Dr. Justin
+                Schmidts.</p>
+            <p>You purchase Card Packs containing different cards to gather them all.</p>
+            <p>PS.: Don't get stung. Some of these insects really hurt!</p>
+            <h3>Please sign up or log in to start your own collection!</h3>
             <div>
-                <a href="${pageContext.request.contextPath}/signup.jsf" id="toSignup-btn"
+                <a href="${pageContext.request.contextPath}/signup.jsf" id="toSignupIndex-btn"
                    class="btn btn-m btn-cta">SIGN UP</a>
-                <a href="${pageContext.request.contextPath}/login.jsf" id="toLogin-btn" class="btn btn-m">LOG IN</a>
+                <a href="${pageContext.request.contextPath}/login.jsf" id="toLoginIndex-btn" class="btn btn-m">LOG IN</a>
+            </div>
+        </sec:anonymous>
+        <h2>All our <h:outputText value="#{itemInfoController.allItems.size()}"/> unique cards:</h2>
+        <div class="cards-container">
+            <c:forEach var="card" items="#{itemInfoController.allItems}">
+                <div class="card-container" id="card_id_#{card.id}">
+                    <div class="card-name"><h:outputText value="#{card.name}"/></div>
+                    <div class="card-latin-name"><h:outputText value="#{card.latinName}"/></div>
+                    <div class="card-description"><h:outputText value="#{card.description}"/></div>
+                    <div class="card-pain-level">Pain level: <h:outputText value="#{card.painLevel}"/></div>
+                    <div class="card-value">Value: $<h:outputText value="#{card.value}"/></div>
+                </div>
+            </c:forEach>
+        </div>
+        <sec:anonymous>
+            <h3>Please sign up or log in to start your own collection!</h3>
+            <div>
+                <a href="${pageContext.request.contextPath}/signup.jsf" id="toSignupIndexBottom-btn"
+                   class="btn btn-m btn-cta">SIGN UP</a>
+                <a href="${pageContext.request.contextPath}/login.jsf" id="toLoginIndexBottom-btn" class="btn btn-m">LOG IN</a>
             </div>
         </sec:anonymous>
 

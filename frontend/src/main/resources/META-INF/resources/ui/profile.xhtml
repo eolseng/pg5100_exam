@@ -25,34 +25,6 @@
         </div>
         <a href="${pageContext.request.contextPath}/ui/changepassword.jsf" id="toChangePassword-btn" class="btn btn-m">Change password</a>
 
-        <h2>My copies:</h2>
-        <div class="round-border">
-            <c:choose>
-                <c:when test="#{userInfoController.copies.size() > 0}">
-                    <div class="copies-container">
-                        <c:forEach var="copy" items="#{userInfoController.copies}">
-                            <div class="copy-container">
-                                <p><h:outputText value="Item name: #{copy.item.name}"/></p>
-                                <p><h:outputText value="Purchased at: #{copy.createdAt}"/></p>
-                                <h:form prependId="false">
-                                    <h:commandButton
-                                            value="Sell"
-                                            action="#{transactionController.sellItem(copy.id)}"
-                                            onclick="location.reload()"
-                                            class="round-btn sell-btn"
-                                            id="sell-btn-#{copy.id}"
-                                    />
-                                </h:form>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <p>You don't have any copies.</p>
-                </c:otherwise>
-            </c:choose>
-        </div>
-
     </ui:define>
 
 </ui:composition>

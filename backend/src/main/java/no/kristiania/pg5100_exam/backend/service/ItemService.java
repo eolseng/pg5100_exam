@@ -60,8 +60,6 @@ public class ItemService {
         if (withCopies) {
             items.forEach(item -> Hibernate.initialize(item.getCopies()));
         }
-        Long size = repo.count();
-        System.out.println(size);
         return items;
     }
 
@@ -86,12 +84,10 @@ public class ItemService {
 
     public List<Item> getRandomItems(int amount, boolean withCopies) {
         // Returns 'amount' random cards. Can contain duplicates.
-
         List<Item> items = new ArrayList<>(amount);
         while (items.size() < amount) {
             items.add(getRandomItem(withCopies));
         }
-
         return items;
     }
 }

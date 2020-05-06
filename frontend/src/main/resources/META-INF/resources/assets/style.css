@@ -29,7 +29,7 @@ body {
 
 .header-logo {
     margin: 5px;
-    font-size:30px;
+    font-size: 30px;
     line-height: 50px;
     color: var(--primary-color);
     text-decoration: none;
@@ -55,11 +55,11 @@ body {
 }
 
 .profile-container {
-    padding: 10px;
+    display: flex;
+    justify-content: space-around;
 
-    border: 1px solid black;
-    border-radius: 4px;
-    background-color: var(--main-bg-color);
+    border-radius: 8px;
+    background-color: var(--fourth-color);
 }
 
 .profile-info {
@@ -94,6 +94,7 @@ body {
     background-color: var(--fourth-color);
     cursor: pointer;
 }
+
 .inactive-btn {
     color: white;
     background-color: var(--fourth-color);
@@ -116,7 +117,7 @@ body {
     line-height: 26px;
 }
 
-.btn-l{
+.btn-l {
     font-size: 20px;
     min-width: 120px;
     min-height: 36px;
@@ -213,7 +214,7 @@ body {
     margin: 5px;
     padding: 10px;
 
-    border:  1px inset black;
+    border: 1px inset black;
     border-radius: 8px;
 
     background-color: var(--main-bg-color);
@@ -224,22 +225,22 @@ body {
     font-weight: 800;
 }
 
-.transactions-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-
-.transaction-container {
-    margin: 10px;
-    padding: 10px;
-
-    width: 300px;
+.copy-container {
+    margin: 5px;
 
     border: 1px solid black;
     border-radius: 8px;
+}
 
-    background-color: var(--secondary-color);
+.copy-card-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    line-height: 42px;
+}
+
+.copy-amount {
+    font-size: 24px;
 }
 
 .round-btn {
@@ -250,10 +251,12 @@ body {
     border-radius: 100%;
 }
 
-.buy-btn {
-    background: lightgreen;
-}
+.mill-btn {
+    padding: 6px;
 
-.sell-btn {
+    font-size: 16px;
     background: lightcoral;
+
+    border: 1px solid black;
+    border-radius: 4px;
 }

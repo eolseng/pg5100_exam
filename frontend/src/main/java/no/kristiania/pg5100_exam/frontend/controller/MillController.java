@@ -8,7 +8,7 @@ import javax.inject.Named;
 
 @Named
 @RequestScoped
-public class TransactionController {
+public class MillController {
 
     @Autowired
     CopyService service;
@@ -16,14 +16,9 @@ public class TransactionController {
     @Autowired
     UserInfoController infoController;
 
-    public void purchaseItem(Long itemId) {
-        String username = infoController.getUsername();
-        service.registerCopy(username, itemId);
-    }
-
-    public String sellItem(Long transactionId) {
-        service.millCopy(transactionId);
-        return "/ui/profile.jsf?faces-redirect=true";
+    public String sellItem(Long copyId) {
+        service.millCopy(copyId);
+        return "/ui/collection.jsf?faces-redirect=true";
     }
 
 }

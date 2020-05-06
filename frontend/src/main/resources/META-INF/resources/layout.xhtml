@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Baloo+Paaji+2|Open+Sans&amp;display=swap" rel="stylesheet"/>
 
     <title>
-        <ui:insert name="title">Default title</ui:insert>
+        <ui:insert name="title">Schmidts Stinging Friends</ui:insert>
     </title>
 
     <ui:insert name="headTags"/>
@@ -23,11 +23,13 @@
 
 <div class="header">
 
-    <a href="${pageContext.request.contextPath}/" class="header-logo">APPLICATION NAME</a>
+    <a href="${pageContext.request.contextPath}/" class="header-logo">Schmidts Stinging Friends</a>
 
     <sec:authenticated>
-        <div class="header-text"><h:outputText value="Welcome, #{userInfoController.username}"/></div>
+        <div class="header-text"><h:outputText value="Hello, #{userInfoController.username} :)"/></div>
         <div>
+            <a href="${pageContext.request.contextPath}/ui/collection.jsf" id="toCollection-btn"
+               class="btn btn-m">MY COLLECTION</a>
             <a href="${pageContext.request.contextPath}/ui/profile.jsf" id="toProfile-btn" class="btn">PROFILE</a>
             <a href="${pageContext.request.contextPath}/logout" id="logout-btn" class="btn">LOG OUT</a>
         </div>
@@ -44,6 +46,15 @@
 </div>
 
 <div class="content">
+    <sec:authenticated>
+        <div class="profile-container">
+            <div class="profile-info"><h:outputText value="User: #{userInfoController.username}"/></div>
+            <div class="profile-info"><h:outputText value="Card Packs: #{userInfoController.cardPacks}"/></div>
+            <div class="profile-info"><h:outputText value="Balance: $#{userInfoController.balance}"/></div>
+            <div class="profile-info"><h:outputText value="Total cards: #{userInfoController.totalCards}"/></div>
+            <div class="profile-info"><h:outputText value="Unique cards: #{userInfoController.uniqueCards} / #{itemInfoController.allItems.size()}"/></div>
+        </div>
+    </sec:authenticated>
     <ui:insert name="content"/>
 </div>
 

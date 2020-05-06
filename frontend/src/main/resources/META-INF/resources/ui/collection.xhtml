@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+>
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">My collection</ui:define>
+
+    <ui:define name="content">
+
+        <h2>My collection:</h2>
+        <c:choose>
+            <c:when test="#{userInfoController.copies.size() > 0}">
+                <div class="cards-container">
+                    <c:forEach var="copy" items="#{userInfoController.copies}">
+                        <div class="copy-container" id="copy_id_#{copy.id}">
+
+                            <div class="card-container" id="card_id_#{copy.item.id}">
+                                <div class="card-name"><h:outputText value="#{copy.item.name}"/></div>
+                                <div class="card-latin-name"><h:outputText value="#{copy.item.latinName}"/></div>
+                                <div class="card-description"><h:outputText value="#{copy.item.description}"/></div>
+                                <div class="card-pain-level">Pain level: <h:outputText value="#{copy.item.painLevel}"/>
+                                </div>
+                                <div class="card-value">Value: $<h:outputText value="#{copy.item.value}"/></div>
+                            </div>
+
+                            <div class="copy-card-bar">
+                                <div class="copy-amount">Copies: #{copy.amount}</div>
+                                <h:form prependId="false">
+                                    <h:commandButton
+                                            value="Mill 1 copy for $#{copy.item.value}"
+                                            action="#{millController.sellItem(copy.id)}"
+                                            class="mill-btn"
+                                            id="mill-btn-#{copy.id}"
+                                    />
+                                </h:form>
+                            </div>
+
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <p>You don't have any cards. Open some Card Packs :)</p>
+            </c:otherwise>
+        </c:choose>
+
+    </ui:define>
+
+</ui:composition>
+</html>

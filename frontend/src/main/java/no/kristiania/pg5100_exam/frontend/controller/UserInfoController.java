@@ -1,6 +1,7 @@
 package no.kristiania.pg5100_exam.frontend.controller;
 
 import no.kristiania.pg5100_exam.backend.entity.Copy;
+import no.kristiania.pg5100_exam.backend.entity.User;
 import no.kristiania.pg5100_exam.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,6 +41,15 @@ public class UserInfoController {
 
     public int getCardPacks() {
         return userService.getUser(getUsername(), false).getCardPacks();
+    }
+
+    public int getTotalCards() {
+        List<Copy> copies = userService.getUser(getUsername(), true).getCopies();
+        return copies.stream().mapToInt(Copy::getAmount).sum();
+    }
+
+    public int getUniqueCards() {
+        return userService.getUser(getUsername(), true).getCopies().size();
     }
 
 }

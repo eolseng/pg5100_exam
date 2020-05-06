@@ -1,5 +1,6 @@
 package no.kristiania.pg5100_exam.backend.service;
 
+import no.kristiania.pg5100_exam.backend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,21 @@ public class DefaultDataInitializerService {
     @Autowired
     private ItemService itemService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CardPackService cardPackService;
+
     @PostConstruct
     public void initialize() {
         createCards();
+
+        User user = userService.createUser("Foo", "bar");
+        cardPackService.openCardPack(user.getUsername());
+        cardPackService.openCardPack(user.getUsername());
+        cardPackService.openCardPack(user.getUsername());
+
     }
 
     private void createCards() {

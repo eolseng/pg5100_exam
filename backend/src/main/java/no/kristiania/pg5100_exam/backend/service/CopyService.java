@@ -17,9 +17,6 @@ import java.util.Optional;
 public class CopyService {
 
     @Autowired
-    private EntityManager em;
-
-    @Autowired
     private CopyRepository repo;
 
     @Autowired
@@ -64,7 +61,7 @@ public class CopyService {
         User user = copy.getUser();
         Item item = copy.getItem();
 
-        if (copy.getAmount() == 1) {
+        if (copy.getAmount() <= 1) {
             repo.deleteById(copyId);
         } else {
             copy.setAmount(copy.getAmount() - 1);

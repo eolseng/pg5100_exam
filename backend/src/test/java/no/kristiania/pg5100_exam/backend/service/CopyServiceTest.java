@@ -134,7 +134,7 @@ class CopyServiceTest extends ServiceTestBase {
         Long copyId = copy.getId();
         Long userBalance = user.getBalance();
 
-        copyService.millCopy(copy.getId());
+        copyService.millCopy(copyId);
         copy = copyService.getCopy(copyId);
         user = userService.getUser(username, false);
         assertEquals(1, copy.getAmount());
