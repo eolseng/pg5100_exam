@@ -24,8 +24,15 @@ public class CardPackController {
         return CardPackService.CARD_PACK_PRICE;
     }
 
+    public List<Copy> getCardPack() {
+        if (cardPack == null) {
+            cardPack = openCardPack();
+        }
+        return cardPack;
+    }
+
     public String purchaseCardPack() {
-        try{
+        try {
             cardPackService.purchaseCardPack(infoController.getUsername());
         } catch (Exception e) {
             return "/ui/collection.jsf?faces-redirect=true&purchase=failed";
@@ -34,10 +41,7 @@ public class CardPackController {
     }
 
     public List<Copy> openCardPack() {
-        if (cardPack == null) {
-            cardPack = cardPackService.openCardPack(infoController.getUsername());
-        }
-        return cardPack;
+        return cardPackService.openCardPack(infoController.getUsername());
     }
 
 }

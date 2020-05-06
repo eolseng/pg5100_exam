@@ -19,6 +19,12 @@
                    class="btn btn-m">MY COLLECTION</a>
                 <a href="${pageContext.request.contextPath}/ui/profile.jsf" id="toProfileIndex-btn"
                    class="btn btn-m">PROFILE</a>
+                <h:outputLink
+                        value="${pageContext.request.contextPath}/ui/cardpack.jsf"
+                        id="toOpenCardPack-btn"
+                        class="btn btn-m"
+                        rendered="#{userInfoController.cardPacks > 0}"
+                >OPEN A CARD PACK</h:outputLink>
             </div>
         </sec:authenticated>
         <sec:anonymous>

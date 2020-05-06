@@ -11,7 +11,37 @@
 
     <ui:define name="content">
 
+        <h2>CONGRATULATIONS! Here are your new cards:</h2>
+        <div class="cards-container">
+            <c:forEach var="copy" items="#{cardPackController.cardPack}">
+                <div class="card-container new-card" id="card_id_#{copy.item.id}">
+                    <div class="card-name"><h:outputText value="#{copy.item.name}"/></div>
+                    <div class="card-latin-name"><h:outputText value="#{copy.item.latinName}"/></div>
+                    <div class="card-description"><h:outputText value="#{copy.item.description}"/></div>
+                    <div class="card-pain-level">Pain level: <h:outputText value="#{copy.item.painLevel}"/>
+                    </div>
+                    <div class="card-value">Value: $<h:outputText value="#{copy.item.value}"/></div>
+                </div>
+            </c:forEach>
+        </div>
 
+        <h:form prependId="false">
+            <h:commandButton
+                    value="PURCHASE CARD PACK FOR $#{cardPackController.price}"
+                    action="#{cardPackController.purchaseCardPack()}"
+                    id="purchaseCardPack-btn"
+                    class="btn btn-m"
+                    rendered="#{userInfoController.balance >= cardPackController.price}"
+            />
+        </h:form>
+        <h:outputLink
+                value="${pageContext.request.contextPath}/ui/cardpack.jsf"
+                id="toOpenCardPack-btn"
+                class="btn btn-m"
+                rendered="#{userInfoController.cardPacks > 0}"
+        >OPEN ANOTHER CARD PACK</h:outputLink>
+        <a href="${pageContext.request.contextPath}/ui/collection.jsf" id="toCollection-btn"
+           class="btn btn-m">MY COLLECTION</a>
 
     </ui:define>
 
