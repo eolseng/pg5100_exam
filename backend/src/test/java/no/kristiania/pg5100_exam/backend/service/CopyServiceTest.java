@@ -37,23 +37,48 @@ class CopyServiceTest extends ServiceTestBase {
         return userService.createUser(username, "bar");
     }
 
+    private Long createRandomItem() {
+
+        int counter = itemIdCounter++;
+        String itemName = "Test_" + counter;
+        Long itemId = itemService.createItem(itemName, "This is the latin name " + counter, 1, "Very painful", 100);
+        assertNotNull(itemId);
+
+        return itemId;
+    }
+
 
     @Test
-    public void testRegisterTransaction() {
+    public void testRegisterCopy() {
 
         String username = "Test_" + userIdCounter++;
         createUser(username);
 
-        String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createCard(itemName, itemName, 1, "Very painful", 100);
+        Long itemId = createRandomItem();
 
-        Copy copy = copyService.registerBooking(username, itemId);
+        Copy copy = copyService.registerCopy(username, itemId);
+        assertEquals(1, copy.getAmount());
+        assertEquals(username, copy.getUser().getUsername());
+        assertEquals(itemId, copy.getItem().getId());
 
-        User userWithTransaction = userService.getUser(username, true);
-        Item itemWithTransaction = itemService.getCard(itemId, true);
+        User userWithCopies = userService.getUser(username, true);
+        assertEquals(1, userWithCopies.getCopies().size());
+        assertEquals(1, userWithCopies.getCopies().get(0).getAmount());
 
-        assertEquals(1, userWithTransaction.getCopies().size());
-        assertEquals(1, itemWithTransaction.getCopies().size());
+        Item itemWithCopies = itemService.getItem(itemId, true);
+        assertEquals(1, itemWithCopies.getCopies().size());
+        assertEquals(1, itemWithCopies.getCopies().get(0).getAmount());
+
+        Copy newCopy = copyService.registerCopy(username, itemId);
+        assertEquals(2, newCopy.getAmount());
+
+        userWithCopies = userService.getUser(username, true);
+        assertEquals(1, userWithCopies.getCopies().size());
+        assertEquals(2, userWithCopies.getCopies().get(0).getAmount());
+
+        itemWithCopies = itemService.getItem(itemId, true);
+        assertEquals(1, userWithCopies.getCopies().size());
+        assertEquals(2, itemWithCopies.getCopies().get(0).getAmount());
 
     }
 
@@ -62,52 +87,52 @@ class CopyServiceTest extends ServiceTestBase {
         String username = "Test_" + userIdCounter++;
 //        createUser(username);
         String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createCard(itemName, itemName, 1, "Very painful", 100);
-        assertThrows(IllegalArgumentException.class, () -> copyService.registerBooking(username, itemId));
+        Long itemId = itemService.createItem(itemName, itemName, 1, "Very painful", 100);
+        assertThrows(IllegalArgumentException.class, () -> copyService.registerCopy(username, itemId));
     }
 
     @Test
     public void testInvalidItem() {
         String username = "Test_" + userIdCounter++;
         createUser(username);
-        assertThrows(IllegalArgumentException.class, () -> copyService.registerBooking(username, -1L));
+        assertThrows(IllegalArgumentException.class, () -> copyService.registerCopy(username, -1L));
     }
 
     @Test
-    public void testGetTransactionsByUsername() {
+    public void testGetCopiesByUsername() {
 
         String username = "Test_" + userIdCounter++;
         createUser(username);
         String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createCard(itemName, itemName, 1, "Very painful", 100);
+        Long itemId = itemService.createItem(itemName, itemName, 1, "Very painful", 100);
 
-        Copy copy = copyService.registerBooking(username, itemId);
+        Copy copy = copyService.registerCopy(username, itemId);
 
         User userWithTransaction = userService.getUser(username, true);
-        Item itemWithTransaction = itemService.getCard(itemId, true);
+        Item itemWithTransaction = itemService.getItem(itemId, true);
         assertEquals(1, userWithTransaction.getCopies().size());
         assertEquals(1, itemWithTransaction.getCopies().size());
 
-        List<Copy> copies = copyService.getTransactionsByUsername(username);
+        List<Copy> copies = copyService.getCopiesByUsername(username);
         assertEquals(1, copies.size());
     }
 
     @Test
-    public void testGetTransactionsByItemId() {
+    public void testGetCopiesByItemId() {
 
         String username = "Test_" + userIdCounter++;
         createUser(username);
         String itemName = "TestItem_" + itemIdCounter++;
-        Long itemId = itemService.createCard(itemName, itemName, 1, "Very painful", 100);
+        Long itemId = itemService.createItem(itemName, itemName, 1, "Very painful", 100);
 
-        Copy copy = copyService.registerBooking(username, itemId);
+        Copy copy = copyService.registerCopy(username, itemId);
 
-        User userWithTransaction = userService.getUser(username, true);
-        Item itemWithTransaction = itemService.getCard(itemId, true);
-        assertEquals(1, userWithTransaction.getCopies().size());
-        assertEquals(1, itemWithTransaction.getCopies().size());
+        User userWithCopies = userService.getUser(username, true);
+        Item itemWithCopies = itemService.getItem(itemId, true);
+        assertEquals(1, userWithCopies.getCopies().size());
+        assertEquals(1, itemWithCopies.getCopies().size());
 
-        List<Copy> copies = copyService.getTransactionsByItemId(itemId);
+        List<Copy> copies = copyService.getCopiesByItemId(itemId);
         assertEquals(1, copies.size());
 
     }

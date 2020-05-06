@@ -10,7 +10,7 @@ import java.util.Set;
 public class User {
 
     public static final int MIN_PASSWORD_LENGTH = 3;
-    public static final Long STARTING_MONEY = 3000L;
+    public static final Long STARTING_BALANCE = 3000L;
     public static final int STARTING_CARD_PACKS = 3;
 
     @Id
@@ -19,7 +19,7 @@ public class User {
     private String username;
 
     @NotBlank
-    @Size(min = MIN_PASSWORD_LENGTH, max = 128)
+    // Since this is a BCrypt hash of the password minimum length is set on the UserService
     @Column(name = "password")
     private String passwordHash;
 
@@ -34,7 +34,7 @@ public class User {
 
     @NotNull
     @Min(0)
-    private Long money;
+    private Long balance;
 
     @NotNull
     @Min(0)
@@ -80,11 +80,19 @@ public class User {
         this.copies = copies;
     }
 
-    public Long getMoney() {
-        return money;
+    public Long getBalance() {
+        return balance;
     }
 
-    public void setMoney(Long money) {
-        this.money = money;
+    public void setBalance(Long money) {
+        this.balance = money;
+    }
+
+    public int getCardPacks() {
+        return cardPacks;
+    }
+
+    public void setCardPacks(int cardPacks) {
+        this.cardPacks = cardPacks;
     }
 }

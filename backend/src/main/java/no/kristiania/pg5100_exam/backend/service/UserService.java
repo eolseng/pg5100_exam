@@ -40,29 +40,30 @@ public class UserService {
         user.setPasswordHash(hashedPassword);
         user.setRoles(Collections.singleton("USER"));
         user.setEnabled(true);
-        user.setMoney(User.STARTING_MONEY);
+        user.setBalance(User.STARTING_BALANCE);
+        user.setCardPacks(User.STARTING_CARD_PACKS);
         repo.save(user);
 
         return user;
     }
 
-    public User getUser(String username, boolean withBookings) {
+    public User getUser(String username, boolean withCopies) {
 
         Optional<User> user = repo.findById(username);
         if (user.isEmpty()) {
             throw new IllegalArgumentException("Username does not exists: " + username);
         }
-        if (withBookings) {
+        if (withCopies) {
             Hibernate.initialize(user.get().getCopies());
         }
 
         return user.get();
     }
 
-    public List<User> getAllUsers(boolean withBookings) {
+    public List<User> getAllUsers(boolean withCopies) {
 
         List<User> users = repo.findAll();
-        if (withBookings) {
+        if (withCopies) {
             users.forEach(user -> Hibernate.initialize(user.getCopies()));
         }
         return users;

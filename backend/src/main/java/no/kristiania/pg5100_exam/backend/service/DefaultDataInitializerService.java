@@ -19,7 +19,7 @@ public class DefaultDataInitializerService {
 
     private void createCards() {
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Honey Wasp",
                 "Brachygastra mellifica",
                 20,
@@ -27,7 +27,7 @@ public class DefaultDataInitializerService {
                 200
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Baldfaced Hornet",
                 "Dolichovespula maculata",
                 20,
@@ -35,7 +35,7 @@ public class DefaultDataInitializerService {
                 200
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Indian Jumping Ant",
                 "Harpegnathos saltator",
                 10,
@@ -43,7 +43,7 @@ public class DefaultDataInitializerService {
                 100
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Water-Walking Wasp",
                 "Euodynerus crypticus",
                 10,
@@ -51,7 +51,7 @@ public class DefaultDataInitializerService {
                 100
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Ferocious Polybia Wasp",
                 "Polybia rejecta",
                 15,
@@ -59,7 +59,7 @@ public class DefaultDataInitializerService {
                 150
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Suturing Army Ant",
                 "Eciton burchellii",
                 15,
@@ -67,7 +67,7 @@ public class DefaultDataInitializerService {
                 150
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Iridescent Cockroach Hunter",
                 "Chlorion cyaneum",
                 10,
@@ -75,7 +75,7 @@ public class DefaultDataInitializerService {
                 100
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Asian Needle Ant",
                 "Brachyponera chinensis",
                 10,
@@ -83,7 +83,7 @@ public class DefaultDataInitializerService {
                 100
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Yellow Fire Wasp",
                 "Agelaia myrmecophila",
                 25,
@@ -91,7 +91,7 @@ public class DefaultDataInitializerService {
                 250
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Red-Headed Paper Wasp",
                 "Polistes erythrocephalus",
                 30,
@@ -99,7 +99,7 @@ public class DefaultDataInitializerService {
                 300
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Nocturnal Hornet",
                 "Probespa sp.",
                 25,
@@ -107,7 +107,7 @@ public class DefaultDataInitializerService {
                 250
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Florida Harvester Ant",
                 "Pogonomyrmex badius",
                 30,
@@ -115,7 +115,7 @@ public class DefaultDataInitializerService {
                 300
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Velvet Ant",
                 "Dasymutilla klugii",
                 30,
@@ -123,7 +123,7 @@ public class DefaultDataInitializerService {
                 300
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Tarantula Hawk",
                 "Pepsis spp.",
                 40,
@@ -131,7 +131,7 @@ public class DefaultDataInitializerService {
                 500
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Bullet Ant",
                 "Paraponera clavata",
                 40,
@@ -139,7 +139,7 @@ public class DefaultDataInitializerService {
                 500
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Warrior Warp",
                 "Synoeca septentrionalis",
                 40,
@@ -147,7 +147,7 @@ public class DefaultDataInitializerService {
                 500
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Western Honey Bee",
                 "Apis mellifera",
                 20,
@@ -155,7 +155,7 @@ public class DefaultDataInitializerService {
                 200
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Unstable Paper Wasp",
                 "Polistes instabilis",
                 20,
@@ -163,7 +163,7 @@ public class DefaultDataInitializerService {
                 200
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Red Paper Wasp",
                 "Polistes canadensis",
                 30,
@@ -171,7 +171,7 @@ public class DefaultDataInitializerService {
                 300
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Maricopa Harvester Ant",
                 "Pogonomyrmex maricopa",
                 30,
@@ -179,7 +179,7 @@ public class DefaultDataInitializerService {
                 300
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Giant Paper Wasp",
                 "Megapolistes sp.",
                 30,
@@ -187,7 +187,7 @@ public class DefaultDataInitializerService {
                 300
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Fierce Black Polybia Wasp",
                 "Polybia Simillima",
                 25,
@@ -195,7 +195,7 @@ public class DefaultDataInitializerService {
                 250
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Trap-Jaw Ant",
                 "Odontomachus spp.",
                 25,
@@ -203,7 +203,7 @@ public class DefaultDataInitializerService {
                 250
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Little Wasp",
                 "Polybia occidentalis",
                 10,
@@ -211,7 +211,7 @@ public class DefaultDataInitializerService {
                 100
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Red Fire Ant",
                 "Solenopsis invicta",
                 10,
@@ -219,7 +219,7 @@ public class DefaultDataInitializerService {
                 100
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Sweat Bee",
                 "Lasioglossum spp.",
                 10,
@@ -227,7 +227,7 @@ public class DefaultDataInitializerService {
                 100
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Slender Twig Ant",
                 "Tetraponera sp.",
                 10,
@@ -235,7 +235,7 @@ public class DefaultDataInitializerService {
                 100
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Artistic Wasp",
                 "Parachartergus fraternus",
                 20,
@@ -243,7 +243,7 @@ public class DefaultDataInitializerService {
                 200
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Glorious Velvet Ant",
                 "Dasymutilla gloriosa",
                 20,
@@ -251,7 +251,7 @@ public class DefaultDataInitializerService {
                 200
         ));
 
-        attempt(() -> itemService.createCard(
+        attempt(() -> itemService.createItem(
                 "Giant Sweat Bee",
                 "Dienuomia heteropoda",
                 15,

@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
@@ -25,14 +27,24 @@ class ItemServiceTest extends ServiceTestBase {
     @Autowired
     private ItemService itemService;
 
+    private Long createRandomItem() {
+
+        int counter = itemIdCounter++;
+        String itemName = "Test_" + counter;
+        Long itemId = itemService.createItem(itemName, "This is the latin name " + counter, 1, "Very painful", 100);
+        assertNotNull(itemId);
+
+        return itemId;
+    }
+
     @Test
     public void testGetItem() {
 
         String itemName = "Test_" + itemIdCounter++;
-        Long itemId = itemService.createCard(itemName, itemName, 1, "Very painful", 100);
+        Long itemId = itemService.createItem(itemName, itemName, 1, "Very painful", 100);
         assertNotNull(itemId);
 
-        Item item = itemService.getCard(itemId, false);
+        Item item = itemService.getItem(itemId, false);
         assertNotNull(item);
 
     }
@@ -40,10 +52,51 @@ class ItemServiceTest extends ServiceTestBase {
     @Test
     public void testGetAllItems() {
         String itemName = "Test_" + itemIdCounter++;
-        Long itemId = itemService.createCard(itemName, itemName, 1, "Very painful", 100);
+        Long itemId = itemService.createItem(itemName, itemName, 1, "Very painful", 100);
         assertNotNull(itemId);
 
-        List<Item> items = itemService.getAllCards(false);
+        List<Item> items = itemService.getAllItems(false);
         assertTrue(items.size() > 0);
+    }
+
+    @Test
+    public void testGetRandomItems() {
+
+        for (int i = 0; i < 15; i++) {
+            createRandomItem();
+        }
+
+        int amount = 3;
+        boolean foundAllUnique = false;
+        boolean foundDuplicate = false;
+
+        for (int i = 0; i < 100; i++) {
+            // Limit to 100 iterations to avoid eternal looping in case of bugs.
+
+            List<Item> randomItems = itemService.getRandomItems(amount, false);
+            assertEquals(amount, randomItems.size());
+
+            Set<Long> ids = new HashSet<>();
+
+            for (Item item : randomItems) {
+                if (ids.contains(item.getId())){
+                    // Check if ID is already in the set - if so duplicates has been found
+                    foundDuplicate = true;
+                }
+                ids.add(item.getId());
+            }
+
+            if (ids.size() == amount) {
+                // Check if 'amount' unique IDs have been added to the set
+                foundAllUnique = true;
+            }
+
+            if (foundAllUnique && foundDuplicate) {
+                // Break if both conditions are met
+                break;
+            }
+        }
+        assertTrue(foundAllUnique);
+        assertTrue(foundDuplicate);
     }
 }

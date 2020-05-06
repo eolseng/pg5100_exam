@@ -16,11 +16,11 @@ public class ItemInfoController {
     ItemService itemService;
 
     public Item getItem(Long id) {
-        return itemService.getCard(id, false);
+        return itemService.getItem(id, false);
     }
 
     public List<Item> getAllItems() {
-        return itemService.getAllCards(false);
+        return itemService.getAllItems(false);
     }
 
 }

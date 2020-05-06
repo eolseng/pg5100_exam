@@ -2,8 +2,6 @@ package no.kristiania.pg5100_exam.backend.service;
 
 import no.kristiania.pg5100_exam.backend.StubApplication;
 import no.kristiania.pg5100_exam.backend.entity.Item;
-import no.kristiania.pg5100_exam.backend.entity.User;
-import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +26,6 @@ class DefaultDataInitializerServiceTest extends ServiceTestBase {
     private DefaultDataInitializerService dataInitializerService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private ItemService itemService;
 
     @Test
@@ -39,22 +34,8 @@ class DefaultDataInitializerServiceTest extends ServiceTestBase {
         // Need to have a clean database (from the ServiceTestBase) before initializing production data.
         dataInitializerService.initialize();
 
-        List<User> users = userService.getAllUsers(true);
-        assertTrue(users.size() > 0);
-        assertTrue(users.get(0).getCopies().size() > 0);
+        List<Item> items = itemService.getAllItems(true);
+        assertEquals(30, items.size());
 
-        String username = users.get(0).getUsername();
-
-        assertThrows(LazyInitializationException.class, () ->
-                userService.getUser(username, false).getCopies().size()
-        );
-
-        User userWithBookings = userService.getUser(username, true);
-        assertTrue(userWithBookings.getCopies().size() > 0);
-
-
-        List<Item> tripsWithBookings = itemService.getAllCards(true);
-        assertTrue(tripsWithBookings.size() > 0);
-        assertTrue(tripsWithBookings.get(0).getCopies().size() > 0);
     }
 }

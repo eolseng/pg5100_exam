@@ -27,7 +27,7 @@ public class UserInfoController {
     }
 
     public Long getMoney() {
-        return userService.getUser(getUsername(), false).getMoney();
+        return userService.getUser(getUsername(), false).getBalance();
     }
 
     public List<Copy> getBookings() {

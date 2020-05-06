@@ -5,7 +5,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "copies")
+@Table(
+        name = "copies",
+        uniqueConstraints =
+                @UniqueConstraint(columnNames = {"user", "item"})
+)
 public class Copy {
 
     @Id
@@ -14,14 +18,16 @@ public class Copy {
 
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "user")
     private User user;
 
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "item")
     private Item item;
 
     @NotNull
-    @Min(0)
+    @Min(1)
     private int amount;
 
     public Copy() {
@@ -58,4 +64,5 @@ public class Copy {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
 }

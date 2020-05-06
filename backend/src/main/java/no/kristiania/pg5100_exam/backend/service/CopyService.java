@@ -28,55 +28,57 @@ public class CopyService {
     @Autowired
     private ItemService itemService;
 
-    public Copy registerBooking(String username, Long tripId) {
+    public Copy registerCopy(String username, Long itemId) {
 
         User user = userService.getUser(username, false);
-        Item item = itemService.getCard(tripId, false);
+        Item item = itemService.getItem(itemId, false);
 
-        if (item.getValue() > user.getMoney()) {
-            throw new IllegalArgumentException("User does not have enough money.");
+        Copy copy;
+        if(repo.existsByUserAndItem(user, item)) {
+            copy = repo.findFirstByUserAndItem(user, item);
+            copy.setAmount(copy.getAmount() + 1);
+        } else {
+            copy = new Copy();
+            copy.setUser(user);
+            copy.setItem(item);
+            copy.setAmount(1);
+            repo.save(copy);
         }
-
-        // Set new balance
-        Long newBalance = user.getMoney() - item.getValue();
-        user.setMoney(newBalance);
-
-        // Persist transaction
-        Copy copy = new Copy();
-        copy.setUser(user);
-        copy.setItem(item);
-        repo.save(copy);
 
         return copy;
     }
 
-    public Copy getBooking(Long bookingId) {
+    public Copy getCopy(Long copyId) {
 
-        Optional<Copy> booking = repo.findById(bookingId);
-        if(booking.isEmpty()) {
-            throw new IllegalArgumentException("Booking does not exists: " + booking);
+        Optional<Copy> copy = repo.findById(copyId);
+        if(copy.isEmpty()) {
+            throw new IllegalArgumentException("Copy does not exists: " + copy);
         }
 
-        return booking.get();
+        return copy.get();
     }
 
-    public void cancelBooking(Long bookingId) {
+    public void millCopy(Long copyId) {
 
-        Copy copy = getBooking(bookingId);
+        Copy copy = getCopy(copyId);
         User user = copy.getUser();
         Item item = copy.getItem();
 
-        Long newBalance = user.getMoney() + item.getValue();
-        user.setMoney(newBalance);
+        if (copy.getAmount() == 1) {
+            repo.deleteById(copyId);
+        } else {
+            copy.setAmount(copy.getAmount() - 1);
+        }
 
-        repo.deleteById(bookingId);
+        Long newBalance = user.getBalance() + item.getValue();
+        user.setBalance(newBalance);
     }
 
-    public List<Copy> getTransactionsByUsername(String username) {
+    public List<Copy> getCopiesByUsername(String username) {
         return repo.findAllByUsername(username);
     }
 
-    public List<Copy> getTransactionsByItemId(Long itemId) {
+    public List<Copy> getCopiesByItemId(Long itemId) {
         return repo.findAllByItemId(itemId);
     }
 }

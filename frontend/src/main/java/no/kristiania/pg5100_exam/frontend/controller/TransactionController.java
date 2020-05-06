@@ -18,11 +18,11 @@ public class TransactionController {
 
     public void purchaseItem(Long itemId) {
         String username = infoController.getUsername();
-        service.registerBooking(username, itemId);
+        service.registerCopy(username, itemId);
     }
 
     public String sellItem(Long transactionId) {
-        service.cancelBooking(transactionId);
+        service.millCopy(transactionId);
         return "/ui/profile.jsf?faces-redirect=true";
     }
 
