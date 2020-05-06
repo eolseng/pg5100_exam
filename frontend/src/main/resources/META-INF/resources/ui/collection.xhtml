@@ -10,6 +10,16 @@
     <ui:define name="title">My collection</ui:define>
 
     <ui:define name="content">
+        <div class="error-bar">
+            <h:outputLabel value="Milling failed - please try again."
+                           rendered="${param['milling'] == 'failed'}"
+                           style="padding: 10px"/>
+        </div>
+        <div class="success-bar">
+            <h:outputLabel value="Successfully milled a card."
+                           rendered="${param['milling'] == 'success'}"
+                           style="padding: 10px"/>
+        </div>
 
         <h2>My collection:</h2>
         <c:choose>
@@ -47,7 +57,6 @@
                 <p>You don't have any cards. Open some Card Packs :)</p>
             </c:otherwise>
         </c:choose>
-
     </ui:define>
 
 </ui:composition>

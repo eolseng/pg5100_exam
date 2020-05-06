@@ -20,7 +20,7 @@
         <div class="round-border">
             <p><h:outputText value="Name: #{userInfoController.username}"/></p>
             <p><h:outputText value="Roles: #{userInfoController.roles}"/></p>
-            <p><h:outputText value="Money: $#{userInfoController.money}"/></p>
+            <p><h:outputText value="Money: $#{userInfoController.balance}"/></p>
             <p><h:outputText value="Items: #{userInfoController.copies.size()}"/></p>
         </div>
         <a href="${pageContext.request.contextPath}/ui/changepassword.jsf" id="toChangePassword-btn" class="btn btn-m">Change password</a>

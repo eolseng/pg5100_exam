@@ -17,8 +17,12 @@ public class MillController {
     UserInfoController infoController;
 
     public String sellItem(Long copyId) {
-        service.millCopy(copyId);
-        return "/ui/collection.jsf?faces-redirect=true";
+        try {
+            service.millCopy(copyId);
+        } catch (Exception e) {
+            return "/ui/collection.jsf?faces-redirect=true&milling=failed";
+        }
+        return "/ui/collection.jsf?faces-redirect=true&milling=success";
     }
 
 }

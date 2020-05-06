@@ -15,12 +15,12 @@ public class ItemInfoController {
     @Autowired
     ItemService itemService;
 
-    public Item getItem(Long id) {
-        return itemService.getItem(id, false);
-    }
+    List<Item> allItems;
 
     public List<Item> getAllItems() {
-        return itemService.getAllItems(false);
+        if(allItems == null) {
+            allItems = itemService.getAllItems(false);
+        }
+        return allItems;
     }
-
 }

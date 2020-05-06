@@ -166,6 +166,18 @@ body {
     color: green;
 }
 
+.error-bar {
+    color: red;
+    text-align: center;
+    font-size: 24px;
+}
+
+.success-bar {
+    color: green;
+    text-align: center;
+    font-size: 24px;
+}
+
 .round-border {
     padding: 10px;
 

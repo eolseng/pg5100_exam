@@ -21,7 +21,6 @@
                    class="btn btn-m">PROFILE</a>
             </div>
         </sec:authenticated>
-
         <sec:anonymous>
             <h1>Welcome to Schmidts Stinging Friends!</h1>
             <p>Schmidts Stinging Friends is a Gacha-game based on 'The Schmidt Pain Index', developed by the entomologist Dr. Justin
@@ -47,6 +46,15 @@
                 </div>
             </c:forEach>
         </div>
+
+        <sec:authenticated>
+            <div>
+                <a href="${pageContext.request.contextPath}/ui/collection.jsf" id="toCollectionIndexBottom-btn"
+                   class="btn btn-m">MY COLLECTION</a>
+                <a href="${pageContext.request.contextPath}/ui/profile.jsf" id="toProfileIndexBottom-btn"
+                   class="btn btn-m">PROFILE</a>
+            </div>
+        </sec:authenticated>
         <sec:anonymous>
             <h3>Please sign up or log in to start your own collection!</h3>
             <div>

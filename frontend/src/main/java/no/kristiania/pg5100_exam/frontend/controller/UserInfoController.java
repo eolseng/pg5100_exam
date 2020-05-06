@@ -19,37 +19,63 @@ public class UserInfoController {
     @Autowired
     private UserService userService;
 
+    private String username;
+    private User user;
+
+    private void getUser() {
+        if (username == null) {
+            username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        }
+        user = userService.getUser(username, true);
+    }
+
     public String getUsername() {
-        return ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        if (username == null) {
+            username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        }
+        return username;
     }
 
     public List<String> getRoles() {
-        return new ArrayList<>(userService.getUser(getUsername(), false).getRoles());
-    }
-
-    public Long getMoney() {
-        return userService.getUser(getUsername(), false).getBalance();
+        if (user == null) {
+            getUser();
+        }
+        return new ArrayList<>(user.getRoles());
     }
 
     public List<Copy> getCopies() {
-        return userService.getUser(getUsername(), true).getCopies();
+        if (user == null) {
+            getUser();
+        }
+        return user.getCopies();
     }
 
     public Long getBalance() {
-        return userService.getUser(getUsername(), false).getBalance();
+        if (user == null) {
+            getUser();
+        }
+        return user.getBalance();
     }
 
     public int getCardPacks() {
-        return userService.getUser(getUsername(), false).getCardPacks();
+        if (user == null) {
+            getUser();
+        }
+        return user.getCardPacks();
     }
 
     public int getTotalCards() {
-        List<Copy> copies = userService.getUser(getUsername(), true).getCopies();
-        return copies.stream().mapToInt(Copy::getAmount).sum();
+        if (user == null) {
+            getUser();
+        }
+        return user.getCopies().stream().mapToInt(Copy::getAmount).sum();
     }
 
     public int getUniqueCards() {
-        return userService.getUser(getUsername(), true).getCopies().size();
+        if (user == null) {
+            getUser();
+        }
+        return user.getCopies().size();
     }
 
 }
