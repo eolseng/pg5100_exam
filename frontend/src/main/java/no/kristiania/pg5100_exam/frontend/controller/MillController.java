@@ -13,10 +13,7 @@ public class MillController {
     @Autowired
     CopyService service;
 
-    @Autowired
-    UserInfoController infoController;
-
-    public String sellItem(Long copyId) {
+    public String millCopy(Long copyId) {
         try {
             service.millCopy(copyId);
         } catch (Exception e) {

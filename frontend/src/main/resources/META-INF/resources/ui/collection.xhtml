@@ -14,14 +14,37 @@
             <h:outputLabel value="Milling failed - please try again."
                            rendered="${param['milling'] == 'failed'}"
                            style="padding: 10px"/>
+            <h:outputLabel value="Purchase failed - please try again."
+                           rendered="${param['purchase'] == 'failed'}"
+                           style="padding: 10px"/>
         </div>
         <div class="success-bar">
             <h:outputLabel value="Successfully milled a card."
                            rendered="${param['milling'] == 'success'}"
                            style="padding: 10px"/>
+            <h:outputLabel value="Congratulations! You just bought a new Card Pack!"
+                           rendered="${param['purchase'] == 'success'}"
+                           style="padding: 10px"/>
         </div>
 
         <h2>My collection:</h2>
+        <div>
+            <h:form prependId="false">
+                <h:commandButton
+                        value="PURCHASE CARD PACK FOR $#{cardPackController.price}"
+                        action="#{cardPackController.purchaseCardPack()}"
+                        id="purchaseCardPack-btn"
+                        class="btn btn-m"
+                        rendered="#{userInfoController.balance >= cardPackController.price}"
+                />
+            </h:form>
+            <h:outputLink
+                    value="${pageContext.request.contextPath}/ui/cardpack.jsf"
+                    id="toOpenCardPack-btn"
+                    class="btn btn-m"
+                    rendered="#{userInfoController.cardPacks > 0}"
+            >OPEN A CARD PACK</h:outputLink>
+        </div>
         <c:choose>
             <c:when test="#{userInfoController.copies.size() > 0}">
                 <div class="cards-container">
@@ -42,7 +65,7 @@
                                 <h:form prependId="false">
                                     <h:commandButton
                                             value="Mill 1 copy for $#{copy.item.value}"
-                                            action="#{millController.sellItem(copy.id)}"
+                                            action="#{millController.millCopy(copy.id)}"
                                             class="mill-btn"
                                             id="mill-btn-#{copy.id}"
                                     />
