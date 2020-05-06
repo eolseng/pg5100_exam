@@ -11,30 +11,36 @@
 
     <ui:define name="content">
 
+        <div class="success-msg">
+            <h:outputLabel value="Password updated successfully!"
+                           rendered="${!empty param['updatedpassword']}"/>
+        </div>
+
         <h2>Profile information:</h2>
         <div class="round-border">
             <p><h:outputText value="Name: #{userInfoController.username}"/></p>
             <p><h:outputText value="Roles: #{userInfoController.roles}"/></p>
             <p><h:outputText value="Money: $#{userInfoController.money}"/></p>
-            <p><h:outputText value="Items: #{userInfoController.bookings.size()}"/></p>
+            <p><h:outputText value="Items: #{userInfoController.copies.size()}"/></p>
         </div>
+        <a href="${pageContext.request.contextPath}/ui/changepassword.jsf" id="toChangePassword-btn" class="btn btn-m">Change password</a>
 
-        <h2>My bookings:</h2>
+        <h2>My copies:</h2>
         <div class="round-border">
             <c:choose>
-                <c:when test="#{userInfoController.bookings.size() > 0}">
-                    <div class="bookings-container">
-                        <c:forEach var="booking" items="#{userInfoController.bookings}">
-                            <div class="booking-container">
-                                <p><h:outputText value="Item name: #{booking.item.name}"/></p>
-                                <p><h:outputText value="Purchased at: #{booking.createdAt}"/></p>
+                <c:when test="#{userInfoController.copies.size() > 0}">
+                    <div class="copies-container">
+                        <c:forEach var="copy" items="#{userInfoController.copies}">
+                            <div class="copy-container">
+                                <p><h:outputText value="Item name: #{copy.item.name}"/></p>
+                                <p><h:outputText value="Purchased at: #{copy.createdAt}"/></p>
                                 <h:form prependId="false">
                                     <h:commandButton
                                             value="Sell"
-                                            action="#{transactionController.sellItem(booking.id)}"
+                                            action="#{transactionController.sellItem(copy.id)}"
                                             onclick="location.reload()"
-                                            class="booking-btn sell-btn"
-                                            id="sell-btn-#{booking.id}"
+                                            class="round-btn sell-btn"
+                                            id="sell-btn-#{copy.id}"
                                     />
                                 </h:form>
                             </div>
@@ -42,7 +48,7 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <p>You don't have any bookings.</p>
+                    <p>You don't have any copies.</p>
                 </c:otherwise>
             </c:choose>
         </div>

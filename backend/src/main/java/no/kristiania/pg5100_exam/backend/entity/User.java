@@ -11,6 +11,7 @@ public class User {
 
     public static final int MIN_PASSWORD_LENGTH = 3;
     public static final Long STARTING_MONEY = 3000L;
+    public static final int STARTING_CARD_PACKS = 3;
 
     @Id
     @NotBlank
@@ -19,7 +20,8 @@ public class User {
 
     @NotBlank
     @Size(min = MIN_PASSWORD_LENGTH, max = 128)
-    private String password;
+    @Column(name = "password")
+    private String passwordHash;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
@@ -28,11 +30,15 @@ public class User {
     private Boolean enabled;
 
     @OneToMany(mappedBy = "user")
-    private List<Booking> bookings;
+    private List<Copy> copies;
 
     @NotNull
     @Min(0)
     private Long money;
+
+    @NotNull
+    @Min(0)
+    private int cardPacks;
 
     public String getUsername() {
         return username;
@@ -42,12 +48,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public Set<String> getRoles() {
@@ -66,12 +72,12 @@ public class User {
         this.enabled = enabled;
     }
 
-    public List<Booking> getBookings() {
-        return bookings;
+    public List<Copy> getCopies() {
+        return copies;
     }
 
-    public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
+    public void setCopies(List<Copy> copies) {
+        this.copies = copies;
     }
 
     public Long getMoney() {

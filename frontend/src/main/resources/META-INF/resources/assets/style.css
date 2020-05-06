@@ -161,6 +161,10 @@ body {
     color: red;
 }
 
+.success-msg {
+    color: green;
+}
+
 .round-border {
     padding: 10px;
 
@@ -205,7 +209,7 @@ body {
     background-color: var(--secondary-color);
 }
 
-.transaction-btn {
+.round-btn {
     height: 40px;
     width: 40px;
 

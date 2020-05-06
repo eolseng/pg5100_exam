@@ -4,6 +4,8 @@ import no.kristiania.pg5100_exam.selenium.PageObject;
 import no.kristiania.pg5100_exam.selenium.po.LayoutPO;
 import org.openqa.selenium.By;
 
+import static org.junit.Assert.assertTrue;
+
 public class ProfilePO extends LayoutPO {
 
 
@@ -18,6 +20,15 @@ public class ProfilePO extends LayoutPO {
 
     public boolean hasTransactions() {
         return driver.findElements(By.className("transaction-container")).size() > 0;
+    }
+
+    public ChangePasswordPO toChangePassword() {
+        clickAndWait("toChangePassword-btn");
+
+        ChangePasswordPO po = new ChangePasswordPO(this);
+        assertTrue(po.isOnPage());
+
+        return po;
     }
 
 }

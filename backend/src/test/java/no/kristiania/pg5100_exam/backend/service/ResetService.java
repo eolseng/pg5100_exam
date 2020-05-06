@@ -2,8 +2,8 @@
 
 package no.kristiania.pg5100_exam.backend.service;
 
-import no.kristiania.pg5100_exam.backend.entity.Booking;
-import no.kristiania.pg5100_exam.backend.entity.Trip;
+import no.kristiania.pg5100_exam.backend.entity.Copy;
+import no.kristiania.pg5100_exam.backend.entity.Item;
 import no.kristiania.pg5100_exam.backend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +21,9 @@ public class ResetService {
     private EntityManager em;
 
     private Class<?>[] entityList = new Class[]{
-            Booking.class,
+            Copy.class,
             User.class,
-            Trip.class
+            Item.class
     };
 
     public void resetDatabase() {

@@ -1,6 +1,6 @@
 package no.kristiania.pg5100_exam.frontend.controller;
 
-import no.kristiania.pg5100_exam.backend.service.BookingService;
+import no.kristiania.pg5100_exam.backend.service.CopyService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.enterprise.context.RequestScoped;
@@ -11,7 +11,7 @@ import javax.inject.Named;
 public class TransactionController {
 
     @Autowired
-    BookingService service;
+    CopyService service;
 
     @Autowired
     UserInfoController infoController;

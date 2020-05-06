@@ -18,7 +18,7 @@ public class LogInPO extends LayoutPO {
 
         setText("username", username);
         setText("password", password);
-        clickAndWait("submit");
+        clickAndWait("submit-btn");
 
         IndexPO po = new IndexPO(this);
         if (po.isOnPage()) {

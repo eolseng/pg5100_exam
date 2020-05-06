@@ -37,7 +37,7 @@ public class UserService {
 
         User user = new User();
         user.setUsername(username);
-        user.setPassword(hashedPassword);
+        user.setPasswordHash(hashedPassword);
         user.setRoles(Collections.singleton("USER"));
         user.setEnabled(true);
         user.setMoney(User.STARTING_MONEY);
@@ -53,7 +53,7 @@ public class UserService {
             throw new IllegalArgumentException("Username does not exists: " + username);
         }
         if (withBookings) {
-            Hibernate.initialize(user.get().getBookings());
+            Hibernate.initialize(user.get().getCopies());
         }
 
         return user.get();
@@ -63,7 +63,7 @@ public class UserService {
 
         List<User> users = repo.findAll();
         if (withBookings) {
-            users.forEach(user -> Hibernate.initialize(user.getBookings()));
+            users.forEach(user -> Hibernate.initialize(user.getCopies()));
         }
         return users;
     }
@@ -72,16 +72,19 @@ public class UserService {
         return repo.existsByUsername(username);
     }
 
-    public void updatePassword(String username, String password) {
+    public void updatePassword(String username, String oldPassword, String newPassword) {
 
-        String hashedPassword = passwordEncoder.encode(password);
+        String hashedPassword = passwordEncoder.encode(newPassword);
 
-        if (password.length() < User.MIN_PASSWORD_LENGTH) {
+        if (newPassword.length() < User.MIN_PASSWORD_LENGTH) {
             throw new IllegalArgumentException("Password is too short. Must be at least " + User.MIN_PASSWORD_LENGTH + " long.");
         }
 
         User user = getUser(username, false);
-        user.setPassword(hashedPassword);
+        if (!passwordEncoder.matches(oldPassword, user.getPasswordHash())) {
+            throw new IllegalArgumentException("Old password is wrong.");
+        }
+        user.setPasswordHash(hashedPassword);
 
     }
 }

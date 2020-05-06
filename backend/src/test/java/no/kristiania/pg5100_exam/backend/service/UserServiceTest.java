@@ -39,7 +39,11 @@ class UserServiceTest extends ServiceTestBase {
         );
         assertThrows(IllegalArgumentException.class, () ->
                 // Too short password
-                userService.updatePassword(username, "12")
+                userService.updatePassword(username, password, "12")
+        );
+        assertThrows(IllegalArgumentException.class, () ->
+                // Wrong old password
+                userService.updatePassword(username, password + 1, "12345")
         );
     }
 
@@ -96,20 +100,24 @@ class UserServiceTest extends ServiceTestBase {
         String password = "bar";
 
         User user = userService.createUser(username, password);
-        String oldHash = user.getPassword();
+        String oldHash = user.getPasswordHash();
 
-        userService.updatePassword(username, "123");
+        userService.updatePassword(username, password, "123");
         user = userService.getUser(username, false);
-        String newHash = user.getPassword();
+        String newHash = user.getPasswordHash();
 
         assertNotEquals(oldHash, newHash);
         assertThrows(IllegalArgumentException.class, () ->
                 // No existing user
-                userService.updatePassword(username + 1, "12345")
+                userService.updatePassword(username + 1, password, "12345")
         );
         assertThrows(IllegalArgumentException.class, () ->
                 // Too short password
-                userService.updatePassword(username, "12")
+                userService.updatePassword(username, password, "12")
+        );
+        assertThrows(IllegalArgumentException.class, () ->
+                // Wrong old password
+                userService.updatePassword(username, password +1, "123")
         );
 
     }
@@ -123,6 +131,6 @@ class UserServiceTest extends ServiceTestBase {
         userService.createUser(username, password);
         User user = userService.getUser(username, false);
 
-        assertNotEquals(password, user.getPassword());
+        assertNotEquals(password, user.getPasswordHash());
     }
 }

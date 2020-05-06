@@ -1,7 +1,7 @@
 package no.kristiania.pg5100_exam.backend.service;
 
 import no.kristiania.pg5100_exam.backend.StubApplication;
-import no.kristiania.pg5100_exam.backend.entity.Trip;
+import no.kristiania.pg5100_exam.backend.entity.Item;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +18,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         classes = StubApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
-class TripServiceTest extends ServiceTestBase {
+class ItemServiceTest extends ServiceTestBase {
 
     private int itemIdCounter = 0;
 
     @Autowired
-    private TripService itemService;
+    private ItemService itemService;
 
     @Test
     public void testGetItem() {
 
         String itemName = "Test_" + itemIdCounter++;
-        Long itemId = itemService.createTrip(itemName, 0L);
+        Long itemId = itemService.createCard(itemName, itemName, 1, "Very painful", 100);
         assertNotNull(itemId);
 
-        Trip item = itemService.getTrip(itemId, false);
+        Item item = itemService.getCard(itemId, false);
         assertNotNull(item);
 
     }
@@ -40,10 +40,10 @@ class TripServiceTest extends ServiceTestBase {
     @Test
     public void testGetAllItems() {
         String itemName = "Test_" + itemIdCounter++;
-        Long itemId = itemService.createTrip(itemName, 0L);
+        Long itemId = itemService.createCard(itemName, itemName, 1, "Very painful", 100);
         assertNotNull(itemId);
 
-        List<Trip> items = itemService.getAllTrips(false);
+        List<Item> items = itemService.getAllCards(false);
         assertTrue(items.size() > 0);
     }
 }

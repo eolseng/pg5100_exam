@@ -1,6 +1,6 @@
 package no.kristiania.pg5100_exam.frontend.controller;
 
-import no.kristiania.pg5100_exam.backend.entity.Booking;
+import no.kristiania.pg5100_exam.backend.entity.Copy;
 import no.kristiania.pg5100_exam.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,8 +30,8 @@ public class UserInfoController {
         return userService.getUser(getUsername(), false).getMoney();
     }
 
-    public List<Booking> getBookings() {
-        return userService.getUser(getUsername(), true).getBookings();
+    public List<Copy> getBookings() {
+        return userService.getUser(getUsername(), true).getCopies();
     }
 
 }

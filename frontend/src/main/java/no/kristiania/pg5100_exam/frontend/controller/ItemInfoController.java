@@ -1,7 +1,7 @@
 package no.kristiania.pg5100_exam.frontend.controller;
 
-import no.kristiania.pg5100_exam.backend.entity.Trip;
-import no.kristiania.pg5100_exam.backend.service.TripService;
+import no.kristiania.pg5100_exam.backend.entity.Item;
+import no.kristiania.pg5100_exam.backend.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.enterprise.context.RequestScoped;
@@ -13,14 +13,14 @@ import java.util.List;
 public class ItemInfoController {
 
     @Autowired
-    TripService itemService;
+    ItemService itemService;
 
-    public Trip getItem(Long id) {
-        return itemService.getTrip(id, false);
+    public Item getItem(Long id) {
+        return itemService.getCard(id, false);
     }
 
-    public List<Trip> getAllItems() {
-        return itemService.getAllTrips(false);
+    public List<Item> getAllItems() {
+        return itemService.getAllCards(false);
     }
 
 }

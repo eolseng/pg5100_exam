@@ -3,6 +3,7 @@ package no.kristiania.pg5100_exam.selenium;
 import no.kristiania.pg5100_exam.selenium.po.IndexPO;
 import no.kristiania.pg5100_exam.selenium.po.LogInPO;
 import no.kristiania.pg5100_exam.selenium.po.SignUpPO;
+import no.kristiania.pg5100_exam.selenium.po.ui.ChangePasswordPO;
 import no.kristiania.pg5100_exam.selenium.po.ui.ProfilePO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,12 +47,11 @@ public abstract class SeleniumTestBase {
         home.toStartingPage();
 
         assertTrue(home.isOnPage(), "Failed to start from Home Page");
+//        assertFalse(home.isLoggedIn(), "Failed to start not logged in");
     }
 
     @Test
     public void testCreateUser() {
-
-        assertFalse(home.isLoggedIn());
 
         String username = getUniqueId();
         String password = "12345";
@@ -64,7 +64,6 @@ public abstract class SeleniumTestBase {
 
     @Test
     public void testFailCreateUser() {
-        assertFalse(home.isLoggedIn());
 
         String username = getUniqueId();
         String password = "12345";
@@ -82,8 +81,6 @@ public abstract class SeleniumTestBase {
 
     @Test
     public void testDoLogoutAndLogIn() {
-
-        assertFalse(home.isLoggedIn());
 
         String username = getUniqueId();
         String password = "12345";
@@ -106,8 +103,6 @@ public abstract class SeleniumTestBase {
     @Test
     public void testUserProfile() {
 
-        assertFalse(home.isLoggedIn());
-
         String username = getUniqueId();
         String password = "12345";
 
@@ -119,5 +114,52 @@ public abstract class SeleniumTestBase {
         assertTrue(po.isOnPage());
         assertFalse(po.hasTransactions());
 
+    }
+
+    @Test
+    public void testChangePassword() {
+
+        String username = getUniqueId();
+        String password = "12345";
+
+        home = createNewUser(username, password);
+        assertTrue(home.isLoggedIn());
+
+        // Navigate to profile page
+        ProfilePO profilePO = home.toProfile();
+        assertTrue(profilePO.isOnPage());
+
+        // Navigate to change password page
+        ChangePasswordPO changePasswordPO = profilePO.toChangePassword();
+        assertTrue(changePasswordPO.isOnPage());
+
+        // Input wrong old password
+        changePasswordPO.setText("old-password", password + 1);
+        changePasswordPO.setText("new-password", password);
+        changePasswordPO.setText("confirm-password", password);
+        changePasswordPO.clickAndWait("submit-btn");
+        assertTrue(changePasswordPO.getDriver().getPageSource().contains("ERROR: Wrong old password"));
+
+        // Input mismatching passwords
+        changePasswordPO.setText("old-password", password);
+        changePasswordPO.setText("new-password", password);
+        changePasswordPO.setText("confirm-password", password + 1);
+        changePasswordPO.clickAndWait("submit-btn");
+        assertTrue(changePasswordPO.getDriver().getPageSource().contains("ERROR: Passwords do not match"));
+
+        // Successful change password
+        String newPassword = "54321";
+        profilePO = changePasswordPO.doChangePassword(password, newPassword);
+        assertTrue(profilePO.isOnPage());
+        assertTrue(profilePO.getDriver().getPageSource().contains("Password updated successfully!"));
+
+        // Logout
+        home.doLogout();
+        assertFalse(home.isLoggedIn());
+
+        // Confirm new password is set
+        LogInPO logInPO = home.toLogIn();
+        home = logInPO.doLogIn(username, newPassword);
+        assertTrue(home.isLoggedIn());
     }
 }
