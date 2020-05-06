@@ -173,13 +173,13 @@ body {
     background-color: var(--main-bg-color);
 }
 
-.items-container {
+.cards-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
 
-.item-container {
+.card-container {
     margin: 10px;
     padding: 10px;
 
@@ -189,6 +189,39 @@ body {
     border-radius: 8px;
 
     background-color: var(--secondary-color);
+}
+
+.new-card {
+    box-shadow: 0px 5px 10px 10px rgba(255, 215, 0, 0.2);
+}
+
+.card-name {
+    font-weight: 800;
+    font-size: 24px;
+}
+
+.card-latin-name {
+    font-style: italic;
+}
+
+.card-pain-level {
+    color: red;
+}
+
+.card-description {
+    height: 130px;
+    margin: 5px;
+    padding: 10px;
+
+    border:  1px inset black;
+    border-radius: 8px;
+
+    background-color: var(--main-bg-color);
+}
+
+.card-value {
+    font-size: 20px;
+    font-weight: 800;
 }
 
 .transactions-container {

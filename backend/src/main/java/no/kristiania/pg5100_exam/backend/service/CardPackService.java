@@ -15,6 +15,7 @@ import java.util.List;
 public class CardPackService {
 
     public static final int CARD_PACK_SIZE = 3;
+    public static final int CARD_PACK_PRICE = 500;
 
     @Autowired
     UserService userService;
@@ -41,5 +42,15 @@ public class CardPackService {
         });
 
         return copies;
+    }
+
+    public void purchaseCardPack(String username) {
+        User user = userService.getUser(username, false);
+        if (user.getBalance() < CARD_PACK_PRICE) {
+            throw new IllegalArgumentException("User does not have enough money to purchase a new Card Pack");
+        }
+
+        user.setBalance(user.getBalance() - CARD_PACK_PRICE);
+        userService.addCardPack(username);
     }
 }

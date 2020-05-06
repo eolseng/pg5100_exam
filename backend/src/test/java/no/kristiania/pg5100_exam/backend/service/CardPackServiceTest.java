@@ -82,6 +82,24 @@ class CardPackServiceTest extends ServiceTestBase {
         assertThrows(IllegalArgumentException.class, () ->
                 cardPackService.openCardPack(username)
         );
+    }
 
+    @Test
+    public void testPurchaseCardPack() {
+
+        String username = "Test_" + userIdCounter++;
+        User user = createUser(username, "bar");
+        int cardPacks = user.getCardPacks();
+        Long balance = user.getBalance();
+
+        cardPackService.purchaseCardPack(username);
+        User refreshedUser = userService.getUser(username, false);
+        assertTrue(refreshedUser.getCardPacks() > cardPacks);
+        assertTrue(refreshedUser.getBalance() < balance);
+
+        while (userService.getUser(username, false).getBalance() >= CardPackService.CARD_PACK_PRICE) {
+            cardPackService.purchaseCardPack(username);
+        }
+        assertThrows(IllegalArgumentException.class, () -> cardPackService.purchaseCardPack(username));
     }
 }

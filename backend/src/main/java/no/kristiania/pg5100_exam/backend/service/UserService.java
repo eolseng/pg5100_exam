@@ -89,4 +89,8 @@ public class UserService {
 
     }
 
+    public void addCardPack(String username) {
+        User user = getUser(username, false);
+        user.setCardPacks(user.getCardPacks() + 1);
+    }
 }

@@ -30,8 +30,16 @@ public class UserInfoController {
         return userService.getUser(getUsername(), false).getBalance();
     }
 
-    public List<Copy> getBookings() {
+    public List<Copy> getCopies() {
         return userService.getUser(getUsername(), true).getCopies();
+    }
+
+    public Long getBalance() {
+        return userService.getUser(getUsername(), false).getBalance();
+    }
+
+    public int getCardPacks() {
+        return userService.getUser(getUsername(), false).getCardPacks();
     }
 
 }
