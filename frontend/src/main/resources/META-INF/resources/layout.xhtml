@@ -52,7 +52,7 @@
             <div class="profile-info" id="cardpacks-text"><h:outputText value="Card Packs: #{userInfoController.cardPacks}"/></div>
             <div class="profile-info" id="balance-text"><h:outputText value="Balance: $#{userInfoController.balance}"/></div>
             <div class="profile-info" id="total-cards-text"><h:outputText value="Total cards: #{userInfoController.totalCards}"/></div>
-            <div class="profile-info" id="unique-cards-text"><h:outputText value="Unique cards: #{userInfoController.uniqueCards} / #{itemInfoController.allItems.size()}"/></div>
+            <div class="profile-info" id="unique-cards-text"><h:outputText value="Unique cards: #{userInfoController.uniqueCards} / #{itemController.allItems.size()}"/></div>
         </div>
     </sec:authenticated>
     <ui:insert name="content"/>

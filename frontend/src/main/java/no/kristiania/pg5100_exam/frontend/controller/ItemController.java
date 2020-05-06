@@ -10,7 +10,7 @@ import java.util.List;
 
 @Named
 @RequestScoped
-public class ItemInfoController {
+public class ItemController {
 
     @Autowired
     ItemService itemService;

@@ -39,7 +39,6 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private List<Copy> copies;
 
-
     public Item() {
     }
 

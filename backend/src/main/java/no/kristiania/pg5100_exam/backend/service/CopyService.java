@@ -25,6 +25,16 @@ public class CopyService {
     @Autowired
     private ItemService itemService;
 
+    public Copy getCopy(Long copyId) {
+
+        Optional<Copy> copy = repo.findById(copyId);
+        if(copy.isEmpty()) {
+            throw new IllegalArgumentException("Copy does not exists: " + copy);
+        }
+
+        return copy.get();
+    }
+
     public Copy registerCopy(String username, Long itemId) {
 
         User user = userService.getUser(username, false);
@@ -43,16 +53,6 @@ public class CopyService {
         }
 
         return copy;
-    }
-
-    public Copy getCopy(Long copyId) {
-
-        Optional<Copy> copy = repo.findById(copyId);
-        if(copy.isEmpty()) {
-            throw new IllegalArgumentException("Copy does not exists: " + copy);
-        }
-
-        return copy.get();
     }
 
     public void millCopy(Long copyId) {

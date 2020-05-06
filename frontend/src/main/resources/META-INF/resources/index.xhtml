@@ -40,9 +40,9 @@
                 <a href="${pageContext.request.contextPath}/login.jsf" id="toLoginIndex-btn" class="btn btn-m">LOG IN</a>
             </div>
         </sec:anonymous>
-        <h2>All our <h:outputText value="#{itemInfoController.allItems.size()}"/> unique cards:</h2>
+        <h2>All our <h:outputText value="#{itemController.allItems.size()}"/> unique cards:</h2>
         <div class="cards-container">
-            <c:forEach var="card" items="#{itemInfoController.allItems}">
+            <c:forEach var="card" items="#{itemController.allItems}">
                 <div class="card-container" id="card_id_#{card.id}">
                     <div class="card-name"><h:outputText value="#{card.name}"/></div>
                     <div class="card-latin-name"><h:outputText value="#{card.latinName}"/></div>

@@ -186,9 +186,7 @@ public abstract class SeleniumTestBase {
         String pageSource = home.getDriver().getPageSource();
 
         List<Item> items = itemService.getAllItems(false);
-        items.forEach(item -> {
-            assertTrue(pageSource.contains(item.getName()));
-        });
+        items.forEach(item -> assertTrue(pageSource.contains(item.getName())));
 
     }
 
