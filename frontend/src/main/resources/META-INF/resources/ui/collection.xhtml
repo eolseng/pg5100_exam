@@ -61,7 +61,7 @@
                             </div>
 
                             <div class="copy-card-bar">
-                                <div class="copy-amount">Copies: #{copy.amount}</div>
+                                <div class="copy-amount" id="copy_amount_#{copy.id}">Copies: #{copy.amount}</div>
                                 <h:form prependId="false">
                                     <h:commandButton
                                             value="Mill 1 copy for $#{copy.item.value}"

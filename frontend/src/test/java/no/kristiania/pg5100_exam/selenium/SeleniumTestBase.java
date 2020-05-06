@@ -1,14 +1,25 @@
 package no.kristiania.pg5100_exam.selenium;
 
+import no.kristiania.pg5100_exam.backend.entity.Item;
+import no.kristiania.pg5100_exam.backend.service.CardPackService;
+import no.kristiania.pg5100_exam.backend.service.ItemService;
+import no.kristiania.pg5100_exam.backend.service.UserService;
 import no.kristiania.pg5100_exam.selenium.po.IndexPO;
 import no.kristiania.pg5100_exam.selenium.po.LogInPO;
 import no.kristiania.pg5100_exam.selenium.po.SignUpPO;
+import no.kristiania.pg5100_exam.selenium.po.ui.CardPackPO;
 import no.kristiania.pg5100_exam.selenium.po.ui.ChangePasswordPO;
+import no.kristiania.pg5100_exam.selenium.po.ui.CollectionPO;
 import no.kristiania.pg5100_exam.selenium.po.ui.ProfilePO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,6 +34,12 @@ public abstract class SeleniumTestBase {
     private String getUniqueId() {
         return "test_unique_id_selenium_" + counter.getAndIncrement();
     }
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    ItemService itemService;
 
     private IndexPO home;
 
@@ -47,7 +64,7 @@ public abstract class SeleniumTestBase {
         home.toStartingPage();
 
         assertTrue(home.isOnPage(), "Failed to start from Home Page");
-//        assertFalse(home.isLoggedIn(), "Failed to start not logged in");
+        assertFalse(home.isLoggedIn());
     }
 
     @Test
@@ -161,5 +178,126 @@ public abstract class SeleniumTestBase {
         LogInPO logInPO = home.toLogIn();
         home = logInPO.doLogIn(username, newPassword);
         assertTrue(home.isLoggedIn());
+    }
+
+    @Test
+    public void testDisplayHomePage() {
+
+        String pageSource = home.getDriver().getPageSource();
+
+        List<Item> items = itemService.getAllItems(false);
+        items.forEach(item -> {
+            assertTrue(pageSource.contains(item.getName()));
+        });
+
+    }
+
+    @Test
+    public void testEmptyCollection() {
+
+        String username = getUniqueId();
+        String password = "123";
+
+        home = createNewUser(username, password);
+
+        CollectionPO po = home.toCollection();
+        assertTrue(po.isOnPage());
+
+        int cardPacks = userService.getUser(username, false).getCardPacks();
+        assertFalse(po.hasCards());
+        assertEquals(cardPacks, po.getCardPackCount());
+
+    }
+
+    @Test
+    public void testRedeemLootBox() {
+
+        String username = getUniqueId();
+        String password = "123";
+        home = createNewUser(username, password);
+
+        int originalCardPacks = home.getCardPackCount();
+        int originalCollectionSize = home.getTotalCardCount();
+
+        CollectionPO collectionPO = home.toCollection();
+
+        CardPackPO cardPackPO = collectionPO.toOpenCardPack();
+        assertEquals(CardPackService.CARD_PACK_SIZE , cardPackPO.getNewCardCount());
+        assertTrue(cardPackPO.getCardPackCount() < originalCardPacks);
+        assertTrue(cardPackPO.getTotalCardCount() > originalCollectionSize);
+
+    }
+
+    @Test
+    public void testFailedRedeemLootBox() {
+
+        String username = getUniqueId();
+        String password = "123";
+        home = createNewUser(username, password);
+
+        CollectionPO collectionPO = home.toCollection();
+
+        CardPackPO cardPackPO = collectionPO.toOpenCardPack();
+        while (cardPackPO.getCardPackCount() > 0) {
+            cardPackPO = cardPackPO.openAnotherCardPack();
+        }
+        assertEquals(0, cardPackPO.getCardPackCount());
+
+        assertFalse(cardPackPO.getDriver().getPageSource().contains("OPEN ANOTHER CARD PACK"));
+    }
+
+    @Test
+    public void testMillItem() {
+
+        String username = getUniqueId();
+        String password = "123";
+        home = createNewUser(username, password);
+
+        CollectionPO collectionPO = home.toCollection();
+
+        CardPackPO cardPackPO = collectionPO.toOpenCardPack();
+        while (cardPackPO.getCardPackCount() > 0) {
+            cardPackPO = cardPackPO.openAnotherCardPack();
+        }
+        assertEquals(0, cardPackPO.getCardPackCount());
+        collectionPO = cardPackPO.toCollection();
+
+        while (collectionPO.hasCards()) {
+
+            WebElement card = getDriver().findElements(By.className("copy-container")).get(0);
+            int copyId = Integer.parseInt(card.getAttribute("id").split("_")[2]);
+            int amount = Integer.parseInt(card.findElement(By.id("copy_amount_" + copyId)).getText().split(" ")[1]);
+            int balance = collectionPO.getBalance();
+
+            collectionPO = collectionPO.millCopy(copyId);
+            assertTrue(balance < collectionPO.getBalance());
+
+            if (amount > 1) {
+                int newAmount = Integer.parseInt(getDriver().findElement(By.id("copy_amount_" + copyId)).getText().split(" ")[1]);
+                assertEquals(amount -1, newAmount);
+            } else {
+                assertThrows(NoSuchElementException.class, () -> getDriver().findElement(By.id("copy_id_" + copyId)));
+            }
+        }
+    }
+
+    @Test
+    public void testBuyLootbox() {
+
+        String username = getUniqueId();
+        String password = "123";
+        home = createNewUser(username, password);
+
+        CollectionPO collectionPO = home.toCollection();
+
+        int balance = collectionPO.getBalance();
+        int cardPacks = collectionPO.getCardPackCount();
+
+        collectionPO = collectionPO.purchaseCardPack();
+
+        assertEquals(cardPacks + 1, collectionPO.getCardPackCount());
+        assertEquals(balance - CardPackService.CARD_PACK_PRICE, collectionPO.getBalance());
+        assertTrue(getDriver().getPageSource().contains("Congratulations! You just bought a new Card Pack!"));
+
     }
 }

@@ -15,7 +15,7 @@ public class IndexPO extends LayoutPO {
 
     @Override
     public boolean isOnPage() {
-        return getDriver().getPageSource().contains("Welcome to this amazing website");
+        return getDriver().getPageSource().contains("Welcome to Schmidts Stinging Friends");
     }
 
     public void toStartingPage(){
