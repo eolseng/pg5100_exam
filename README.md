@@ -27,18 +27,18 @@ Note: the service is shut down after a period of inactivity and might use a few 
 After cloning the repository, do a 'mvn clean install -DskipTests' from the root-module to build the project.
 
 The service will be available on localhost:8080 when running.
-####Running all tests:
+#### Running all tests:
 >From the root-module, do 'mvn clean verify'. A JaCoCo report is generated under the report-module.
 
-####Local Test Run with H2 database:
+#### Local Test Run with H2 database:
 >In the frontend-module, under the src/test folder, start no.kristiania.pg5100_exam.LocalApplicationRunner.
 
-####Docker-Compose
+#### Docker-Compose
 >In the frontend-module, do 'docker-compose up' to start a containerized PostgreSQL:10 database and the service. This requires a Docker environment to run.
 
 As for requirements I've completed every requirement - R1 through R5 and I have 95% test coverage.
 
-### Technologies used:
+## Technologies used:
 #### Spring-Boot-Starter
 Web, Security, Validation, Test, Validation
 #### Database
@@ -48,7 +48,7 @@ JUnit, Selenium, JaCoCo
 #### Deployment
 Heroku / Heroku CLI
 
-### Extra features:
+## Extra features:
 * Sorting of copies under 'My Collection' - tested by 'testSortCollection'
 * Changing of passwords - tested by 'testChangePassword'
 * Admin page with form to create new cards - tested by 'testCreateNewCard'
@@ -57,7 +57,7 @@ Heroku / Heroku CLI
 
 Can also be run as a stand alone Docker container as long as the user has a PostgreSQL:10 database running on port 5432 with the password for the 'postgres' user set to 'docker'.
 
-####Admin Login Credentials:
+#### Admin Login Credentials:
 * Username: admin
 * Password: admin
 
