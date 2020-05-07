@@ -24,9 +24,9 @@ The application is deployed to Heroku using Heroku CLI, and is available (as of 
 Note: the service is shut down after a period of inactivity and might use a few seconds to start back up.
 
 ## Running the application:
-After cloning the repository, do a 'mvn clean install -DskipTests' from the root-module to build the project.
-
 The service will be available on localhost:8080 when running.
+
+You might need to do a 'mvn clean package' from the root module before you can run the application.
 #### Running all tests:
 >From the root-module, do 'mvn clean verify'. A JaCoCo report is generated under the report-module.
 
@@ -39,13 +39,13 @@ The service will be available on localhost:8080 when running.
 As for requirements I've completed every requirement - R1 through R5 and I have 95% test coverage.
 
 ## Technologies used:
-#### Spring-Boot-Starter
+### Spring-Boot-Starter
 Web, Security, Validation, Test, Validation
-#### Database
+### Database
 PostgreSQL, H2, FlyWay
-#### Testing
+### Testing
 JUnit, Selenium, JaCoCo
-#### Deployment
+### Deployment
 Heroku / Heroku CLI
 
 ## Extra features:
