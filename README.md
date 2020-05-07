@@ -15,7 +15,7 @@ Happy collecting!
 ## Project description:
 The solution is based on material learned during the course PG5100 - Enterprise 1 (Enterpriseprogrammering 1).
 
-The project is based on SpringBoot 2.1.0, written in Java 11, and the front end rendering is done with JSF and XHTML, and is using Maven as the build tool.
+The project is based on SpringBoot 2.1.0, written in Java 11, and the front end rendering is done with JSF and XHTML. It is using Maven as the build tool.
 Testing is done with JUnit and Selenium with JaCoCo for reporting.
 
 The project is made in three modules: backend, frontend and report, with a root POM-file for dependency- and plugin-management.
@@ -34,7 +34,7 @@ The service will be available on localhost:8080 when running.
 ####Docker-Compose
 >In the frontend-module, do 'docker-compose up' to start a containerized PostgreSQL:10 database and the service. This requires a Docker environment to run.
 
-As for requirements I've completed every requirement - R1 through R5 and I have 94% test coverage. 
+As for requirements I've completed every requirement - R1 through R5 and I have 95% test coverage.
 
 ### Technologies used:
 #### Spring-Boot-Starter
@@ -49,8 +49,16 @@ Heroku / Heroku CLI
 ### Extra features:
 * Sorting of copies under 'My Collection' - tested by 'testSortCollection'
 * Changing of passwords - tested by 'testChangePassword'
+* Admin page with form to create new cards - tested by 'testCreateNewCard'
 * Deployed to Heroku at https://pg5100-exam.herokuapp.com
-* docker-compose support to start the application with a PostgreSQL database
+* docker-compose support to start the application with a containerized PostgreSQL database
+
+Can also be run as a stand alone Docker container as long as the user has a PostgreSQL:10 database running on port 5432 with the password for the 'postgres' user set to 'docker'.
+
+####Admin Login Credentials:
+* Username: admin
+* Password: admin
+
 
 ### Other notes
 The project is based on the curriculum-repository https://github.com/arcuri82/testing_security_development_enterprise_systems. 

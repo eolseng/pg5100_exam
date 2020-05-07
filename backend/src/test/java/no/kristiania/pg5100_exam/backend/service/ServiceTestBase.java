@@ -1,7 +1,6 @@
 package no.kristiania.pg5100_exam.backend.service;
 
 import no.kristiania.pg5100_exam.backend.entity.Copy;
-import no.kristiania.pg5100_exam.backend.entity.Item;
 import no.kristiania.pg5100_exam.backend.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;

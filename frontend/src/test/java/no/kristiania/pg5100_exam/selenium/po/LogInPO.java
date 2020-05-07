@@ -4,7 +4,6 @@ import no.kristiania.pg5100_exam.selenium.PageObject;
 
 public class LogInPO extends LayoutPO {
 
-
     public LogInPO(PageObject otherPO) {
         super(otherPO);
     }

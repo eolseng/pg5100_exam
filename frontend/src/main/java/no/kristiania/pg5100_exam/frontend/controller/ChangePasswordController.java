@@ -4,7 +4,6 @@ import no.kristiania.pg5100_exam.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 @Named

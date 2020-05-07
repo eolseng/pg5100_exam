@@ -1,8 +1,8 @@
 package no.kristiania.pg5100_exam.backend.service;
 
 import no.kristiania.pg5100_exam.backend.StubApplication;
-import no.kristiania.pg5100_exam.backend.entity.Item;
 import no.kristiania.pg5100_exam.backend.entity.Copy;
+import no.kristiania.pg5100_exam.backend.entity.Item;
 import no.kristiania.pg5100_exam.backend.entity.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -2,12 +2,9 @@ package no.kristiania.pg5100_exam.selenium.po.ui;
 
 import no.kristiania.pg5100_exam.selenium.PageObject;
 import no.kristiania.pg5100_exam.selenium.po.LayoutPO;
-import no.kristiania.pg5100_exam.selenium.po.LogInPO;
 import org.openqa.selenium.By;
 
-import java.util.Collections;
-
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CollectionPO extends LayoutPO {
 

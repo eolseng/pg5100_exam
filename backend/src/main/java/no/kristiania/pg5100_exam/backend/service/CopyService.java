@@ -1,15 +1,13 @@
 package no.kristiania.pg5100_exam.backend.service;
 
-import no.kristiania.pg5100_exam.backend.entity.Item;
 import no.kristiania.pg5100_exam.backend.entity.Copy;
+import no.kristiania.pg5100_exam.backend.entity.Item;
 import no.kristiania.pg5100_exam.backend.entity.User;
 import no.kristiania.pg5100_exam.backend.repository.CopyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 

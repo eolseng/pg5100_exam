@@ -38,13 +38,20 @@ public class UserService {
         User user = new User();
         user.setUsername(username);
         user.setPasswordHash(hashedPassword);
-        user.setRoles(Collections.singleton("USER"));
+        user.setRoles(Collections.singleton("ROLE_USER"));
         user.setEnabled(true);
         user.setBalance(User.STARTING_BALANCE);
         user.setCardPacks(User.STARTING_CARD_PACKS);
         repo.save(user);
 
         return user;
+    }
+
+    public void promoteToAdmin(String username) {
+        User user = getUser(username, false);
+        user.setRoles(Collections.singleton("ROLE_ADMIN"));
+        user.setCardPacks(100);
+        user.setBalance(100_000L);
     }
 
     public User getUser(String username, boolean withCopies) {

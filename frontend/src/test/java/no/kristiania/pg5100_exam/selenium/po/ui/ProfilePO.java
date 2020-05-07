@@ -1,13 +1,10 @@
 package no.kristiania.pg5100_exam.selenium.po.ui;
 
-import no.kristiania.pg5100_exam.backend.entity.Copy;
 import no.kristiania.pg5100_exam.selenium.PageObject;
 import no.kristiania.pg5100_exam.selenium.po.LayoutPO;
 import org.openqa.selenium.By;
 
-import java.util.Comparator;
-
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ProfilePO extends LayoutPO {
 

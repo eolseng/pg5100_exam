@@ -28,6 +28,10 @@
     <sec:authenticated>
         <div class="header-text"><h:outputText value="Hello, #{userInfoController.username} :)"/></div>
         <div>
+            <h:outputLink rendered="#{request.isUserInRole('ROLE_ADMIN')}"
+                          value="${pageContext.request.contextPath}/admin/admin.jsf"
+                          id="toAdminPage-btn"
+                          class="btn btn-m">ADMIN PAGE</h:outputLink>
             <a href="${pageContext.request.contextPath}/ui/collection.jsf" id="toCollection-btn"
                class="btn btn-m">MY COLLECTION</a>
             <a href="${pageContext.request.contextPath}/ui/profile.jsf" id="toProfile-btn" class="btn">PROFILE</a>
@@ -38,7 +42,8 @@
     <sec:anonymous>
         <div class="header-text">Please sign up or log in :)</div>
         <div>
-            <a href="${pageContext.request.contextPath}/signup.jsf" id="toSignUp-btn" class="btn btn-m btn-cta">SIGN UP</a>
+            <a href="${pageContext.request.contextPath}/signup.jsf" id="toSignUp-btn"
+               class="btn btn-m btn-cta">SIGN UP</a>
             <a href="${pageContext.request.contextPath}/login.jsf" id="toLogIn-btn" class="btn btn-m">LOG IN</a>
         </div>
     </sec:anonymous>
@@ -48,11 +53,16 @@
 <div class="content">
     <sec:authenticated>
         <div class="profile-container">
-            <div class="profile-info" id="username-text"><h:outputText value="User: #{userInfoController.username}"/></div>
-            <div class="profile-info" id="cardpacks-text"><h:outputText value="Card Packs: #{userInfoController.cardPacks}"/></div>
-            <div class="profile-info" id="balance-text"><h:outputText value="Balance: $#{userInfoController.balance}"/></div>
-            <div class="profile-info" id="total-cards-text"><h:outputText value="Total cards: #{userInfoController.totalCards}"/></div>
-            <div class="profile-info" id="unique-cards-text"><h:outputText value="Unique cards: #{userInfoController.uniqueCards} / #{itemController.allItems.size()}"/></div>
+            <div class="profile-info" id="username-text"><h:outputText value="User: #{userInfoController.username}"/>
+            </div>
+            <div class="profile-info" id="cardpacks-text"><h:outputText
+                    value="Card Packs: #{userInfoController.cardPacks}"/></div>
+            <div class="profile-info" id="balance-text"><h:outputText value="Balance: $#{userInfoController.balance}"/>
+            </div>
+            <div class="profile-info" id="total-cards-text"><h:outputText
+                    value="Total cards: #{userInfoController.totalCards}"/></div>
+            <div class="profile-info" id="unique-cards-text"><h:outputText
+                    value="Unique cards: #{userInfoController.uniqueCards} / #{itemController.allItems.size()}"/></div>
         </div>
     </sec:authenticated>
     <ui:insert name="content"/>

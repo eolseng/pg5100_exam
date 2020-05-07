@@ -34,7 +34,6 @@
         <version.surefire-failsafe>3.0.0-M4</version.surefire-failsafe>
         <version.jacoco>0.8.5</version.jacoco>
         <version.selenium>3.141.59</version.selenium>
-        <version.testcontainers>1.12.4</version.testcontainers>
 
         <version.jsf>3.2.3</version.jsf>
         <version.cdi-api>2.0</version.cdi-api>
@@ -45,6 +44,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <!-- Spring dependencies -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -113,7 +113,6 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <!-- for code coverage -->
                 <groupId>org.jacoco</groupId>
                 <artifactId>org.jacoco.core</artifactId>
                 <version>${version.jacoco}</version>
@@ -122,60 +121,36 @@
 
             <!-- Selenium dependencies -->
             <dependency>
-                <!-- used to control a browser for system testing -->
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
                 <version>${version.selenium}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <!-- used to control a browser for system testing -->
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-api</artifactId>
                 <version>${version.selenium}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <!-- used to control a browser for system testing -->
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-chrome-driver</artifactId>
                 <version>${version.selenium}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <!-- used to control a browser for system testing -->
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-remote-driver</artifactId>
                 <version>${version.selenium}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <!-- used to control a browser for system testing -->
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-support</artifactId>
                 <version>${version.selenium}</version>
                 <scope>test</scope>
             </dependency>
 
-            <!-- Docker dependencies -->
-            <dependency>
-                <groupId>org.testcontainers</groupId>
-                <artifactId>testcontainers</artifactId>
-                <version>${version.testcontainers}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.testcontainers</groupId>
-                <artifactId>selenium</artifactId>
-                <version>${version.testcontainers}</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.seleniumhq.selenium</groupId>
-                        <artifactId>selenium-remote-driver</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

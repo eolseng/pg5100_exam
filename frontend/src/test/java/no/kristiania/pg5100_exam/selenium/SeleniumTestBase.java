@@ -7,6 +7,7 @@ import no.kristiania.pg5100_exam.backend.service.UserService;
 import no.kristiania.pg5100_exam.selenium.po.IndexPO;
 import no.kristiania.pg5100_exam.selenium.po.LogInPO;
 import no.kristiania.pg5100_exam.selenium.po.SignUpPO;
+import no.kristiania.pg5100_exam.selenium.po.admin.AdminPO;
 import no.kristiania.pg5100_exam.selenium.po.ui.CardPackPO;
 import no.kristiania.pg5100_exam.selenium.po.ui.ChangePasswordPO;
 import no.kristiania.pg5100_exam.selenium.po.ui.CollectionPO;
@@ -352,6 +353,26 @@ public abstract class SeleniumTestBase {
             int nextCardValue = Integer.parseInt(cards.get(i + 1).findElements(By.className("card-value")).get(0).getText().split("\\$")[1]);
             assertTrue(cardValue <= nextCardValue);
         }
+    }
+
+    @Test
+    public void testCreateNewCard() {
+
+        LogInPO loginPO = home.toLogIn();
+        assertFalse(loginPO.isAdmin());
+
+        loginPO.doLogIn("admin", "admin");
+        loginPO.isLoggedIn();
+        assertTrue(loginPO.isAdmin());
+
+        AdminPO adminPO = loginPO.toAdminPage();
+
+        int uniqueCards = Integer.parseInt(adminPO.getDriver().findElement(By.id("unique-cards-text")).getText().split(" ")[4]);
+
+        adminPO.createRandomCard();
+        int newUniqueCards = Integer.parseInt(adminPO.getDriver().findElement(By.id("unique-cards-text")).getText().split(" ")[4]);
+        assertTrue(adminPO.getDriver().getPageSource().contains("Successfully created the card."));
+        assertEquals(uniqueCards + 1, newUniqueCards);
 
     }
 }

@@ -1,6 +1,5 @@
 package no.kristiania.pg5100_exam.backend.service;
 
-import no.kristiania.pg5100_exam.backend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +29,15 @@ public class DefaultDataInitializerService {
 
         if(registeredUsers == 0 && registeredItems == 0){
             createCards();
-
-            User user = userService.createUser("Foo", "bar");
-            cardPackService.openCardPack(user.getUsername());
-            cardPackService.openCardPack(user.getUsername());
-            cardPackService.openCardPack(user.getUsername());
+            createAdmin();
         }
+    }
 
+    private void createAdmin() {
+        String adminUsername = "admin";
+        String adminPassword = "admin";
+        userService.createUser(adminUsername, adminPassword);
+        userService.promoteToAdmin(adminUsername);
     }
 
     private void createCards() {
