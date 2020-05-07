@@ -28,13 +28,13 @@ The service will be available on localhost:8080 when running.
 
 You might need to do a 'mvn clean package' from the root module before you can run the application.
 #### Running all tests:
->From the root-module, do 'mvn clean verify'. A JaCoCo report is generated under the report-module.
+From the root-module, do 'mvn clean verify'. A JaCoCo report is generated under the report-module.
 
 #### Local Test Run with H2 database:
->In the frontend-module, under the src/test folder, start no.kristiania.pg5100_exam.LocalApplicationRunner.
+In the frontend-module, under the src/test folder, start no.kristiania.pg5100_exam.LocalApplicationRunner.
 
 #### Docker-Compose
->In the frontend-module, do 'docker-compose up' to start a containerized PostgreSQL:10 database and the service. This requires a Docker environment to run.
+In the frontend-module, do 'docker-compose up' to start a containerized PostgreSQL:10 database and the service. This requires a Docker environment to run.
 
 As for requirements I've completed every requirement - R1 through R5 and I have 95% test coverage.
 
