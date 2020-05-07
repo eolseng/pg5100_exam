@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 @Table(
         name = "copies",
         uniqueConstraints =
-                @UniqueConstraint(columnNames = {"uzer", "item"})
+        @UniqueConstraint(columnNames = {"uzer", "item"})
 )
 public class Copy {
 

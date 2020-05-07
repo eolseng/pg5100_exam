@@ -27,22 +27,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class SeleniumTestBase {
 
+    private static final AtomicInteger counter = new AtomicInteger(0);
+    @Autowired
+    UserService userService;
+    @Autowired
+    ItemService itemService;
+    private IndexPO home;
+
     protected abstract WebDriver getDriver();
+
     protected abstract String getServerHost();
+
     protected abstract int getServerPort();
 
-    private static final AtomicInteger counter = new AtomicInteger(0);
     private String getUniqueId() {
         return "test_unique_id_selenium_" + counter.getAndIncrement();
     }
-
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    ItemService itemService;
-
-    private IndexPO home;
 
     private IndexPO createNewUser(String username, String password) {
 
@@ -111,7 +111,7 @@ public abstract class SeleniumTestBase {
         assertFalse(home.isLoggedIn());
         assertFalse(home.getDriver().getPageSource().contains(username));
 
-        LogInPO logInPO =  home.toLogIn();
+        LogInPO logInPO = home.toLogIn();
         home = logInPO.doLogIn(username, password);
         assertTrue(home.isLoggedIn());
         assertTrue(home.getDriver().getPageSource().contains(username));
@@ -221,7 +221,7 @@ public abstract class SeleniumTestBase {
         CollectionPO collectionPO = home.toCollection();
 
         CardPackPO cardPackPO = collectionPO.toOpenCardPack();
-        assertEquals(CardPackService.CARD_PACK_SIZE , cardPackPO.getNewCardCount());
+        assertEquals(CardPackService.CARD_PACK_SIZE, cardPackPO.getNewCardCount());
         assertTrue(cardPackPO.getCardPackCount() < originalCardPacks);
         assertTrue(cardPackPO.getTotalCardCount() > originalCollectionSize);
 
@@ -273,7 +273,7 @@ public abstract class SeleniumTestBase {
 
             if (amount > 1) {
                 int newAmount = Integer.parseInt(getDriver().findElement(By.id("copy_amount_" + copyId)).getText().split(" ")[1]);
-                assertEquals(amount -1, newAmount);
+                assertEquals(amount - 1, newAmount);
             } else {
                 assertThrows(NoSuchElementException.class, () -> getDriver().findElement(By.id("copy_id_" + copyId)));
             }

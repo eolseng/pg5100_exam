@@ -15,9 +15,6 @@ public class DefaultDataInitializerService {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private CardPackService cardPackService;
-
     @PostConstruct
     public void initialize() {
 
@@ -27,7 +24,7 @@ public class DefaultDataInitializerService {
         int registeredUsers = userService.getAllUsers(false).size();
         int registeredItems = itemService.getAllItems(false).size();
 
-        if(registeredUsers == 0 && registeredItems == 0){
+        if (registeredUsers == 0 && registeredItems == 0) {
             createCards();
             createAdmin();
         }

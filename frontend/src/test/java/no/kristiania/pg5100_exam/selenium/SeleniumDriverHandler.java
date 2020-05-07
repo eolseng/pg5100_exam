@@ -45,7 +45,7 @@ public class SeleniumDriverHandler {
          */
 
         boolean OK = setupDriverExecutable("chromedriver", "webdriver.chrome.driver");
-        if(! OK){
+        if (!OK) {
             return null;
         }
 

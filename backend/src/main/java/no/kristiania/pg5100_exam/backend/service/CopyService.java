@@ -27,7 +27,7 @@ public class CopyService {
     public Copy getCopy(Long copyId) {
 
         Optional<Copy> copy = repo.findById(copyId);
-        if(copy.isEmpty()) {
+        if (copy.isEmpty()) {
             throw new IllegalArgumentException("Copy does not exists: " + copy);
         }
 
@@ -40,7 +40,7 @@ public class CopyService {
         Item item = itemService.getItem(itemId, false);
 
         Copy copy;
-        if(repo.existsByUserAndItem(user, item)) {
+        if (repo.existsByUserAndItem(user, item)) {
             copy = repo.findFirstByUserAndItem(user, item);
             copy.setAmount(copy.getAmount() + 1);
         } else {

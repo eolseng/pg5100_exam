@@ -67,7 +67,7 @@ public class ItemService {
 
         long size = repo.count();
         Random random = new Random();
-        int rnd = random.nextInt((int)size);
+        int rnd = random.nextInt((int) size);
 
         TypedQuery<Item> query = em
                 .createQuery("SELECT item FROM Item item", Item.class)

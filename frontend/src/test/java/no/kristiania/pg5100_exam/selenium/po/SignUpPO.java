@@ -21,7 +21,7 @@ public class SignUpPO extends LayoutPO {
         clickAndWait("submit-btn");
 
         IndexPO po = new IndexPO(this);
-        if(po.isOnPage()) {
+        if (po.isOnPage()) {
             return po;
         } else {
             return null;

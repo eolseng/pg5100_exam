@@ -13,15 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class PageObject {
 
+    private static final AtomicLong counter = new AtomicLong(System.currentTimeMillis());
     protected final WebDriver driver;
     protected final String host;
     protected final int port;
-
-    private static final AtomicLong counter = new AtomicLong(System.currentTimeMillis());
-
-    public static String getUniqueId() {
-        return "unique_id_" + counter.incrementAndGet();
-    }
 
     public PageObject(WebDriver driver, String host, int port) {
         this.driver = driver;
@@ -33,6 +28,10 @@ public abstract class PageObject {
         this(otherPO.getDriver(), otherPO.getHost(), otherPO.getPort());
     }
 
+    public static String getUniqueId() {
+        return "unique_id_" + counter.incrementAndGet();
+    }
+
     public abstract boolean isOnPage();
 
     public void refresh() {
@@ -42,9 +41,13 @@ public abstract class PageObject {
     public void clickAndWait(String id) {
         WebElement element = getDriver().findElement(By.id(id));
         element.click();
-        try {Thread.sleep(200);} catch (Exception ex){/**/}
+        try {
+            Thread.sleep(200);
+        } catch (Exception ex) {/**/}
         waitForPageToLoad();
-        try {Thread.sleep(300);} catch (Exception ex){/**/}
+        try {
+            Thread.sleep(300);
+        } catch (Exception ex) {/**/}
     }
 
     private Boolean waitForPageToLoad() {

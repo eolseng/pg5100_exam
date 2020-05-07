@@ -18,7 +18,7 @@ public class IndexPO extends LayoutPO {
         return getDriver().getPageSource().contains("Welcome to Schmidts Stinging Friends");
     }
 
-    public void toStartingPage(){
+    public void toStartingPage() {
         getDriver().get(host + ":" + port);
     }
 

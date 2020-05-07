@@ -4,7 +4,7 @@ import no.kristiania.pg5100_exam.selenium.PageObject;
 import no.kristiania.pg5100_exam.selenium.po.LayoutPO;
 import org.openqa.selenium.By;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CardPackPO extends LayoutPO {
 

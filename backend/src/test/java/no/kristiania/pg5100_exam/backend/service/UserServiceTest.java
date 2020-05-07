@@ -117,7 +117,7 @@ class UserServiceTest extends ServiceTestBase {
         );
         assertThrows(IllegalArgumentException.class, () ->
                 // Wrong old password
-                userService.updatePassword(username, password +1, "123")
+                userService.updatePassword(username, password + 1, "123")
         );
 
     }

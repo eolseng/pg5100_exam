@@ -22,7 +22,7 @@ public class ChangePasswordController {
 
     public String updatePassword() {
 
-        if (!newPassword.equals(confirmPassword)){
+        if (!newPassword.equals(confirmPassword)) {
             return "/ui/changepassword.jsf?faces-redirect=true&mismatch=true";
         }
 
