@@ -23,6 +23,9 @@ The project is made in three modules: backend, frontend and report, with a root 
 The application is deployed to Heroku using Heroku CLI, and is available (as of this writing) at https://pg5100-exam.herokuapp.com.
 Note: the service is shut down after a period of inactivity and might use a few seconds to start back up.
 
+I have completed every requirement - R1 through R5 and I have 95% test coverage.
+See the assignment [here](docs/pg5100_may_exam_2020.pdf).
+
 ## Running the application:
 The service will be available on localhost:8080 when running.
 
@@ -35,8 +38,6 @@ In the frontend-module, under the src/test folder, start no.kristiania.pg5100_ex
 
 #### Docker-Compose
 In the frontend-module, do 'docker-compose up' to start a containerized PostgreSQL:10 database and the service. This requires a Docker environment to run.
-
-As for requirements I've completed every requirement - R1 through R5 and I have 95% test coverage.
 
 ## Technologies used:
 ### Spring-Boot-Starter
