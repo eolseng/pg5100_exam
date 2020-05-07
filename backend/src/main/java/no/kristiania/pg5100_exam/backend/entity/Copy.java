@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 @Table(
         name = "copies",
         uniqueConstraints =
-                @UniqueConstraint(columnNames = {"user", "item"})
+                @UniqueConstraint(columnNames = {"uzer", "item"})
 )
 public class Copy {
 
@@ -18,7 +18,7 @@ public class Copy {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "uzer")
     private User user;
 
     @NotNull
