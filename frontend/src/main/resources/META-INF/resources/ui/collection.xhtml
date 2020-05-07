@@ -47,10 +47,34 @@
         </div>
         <c:choose>
             <c:when test="#{userInfoController.copies.size() > 0}">
+                <h3>Sort collection by:</h3>
+                <h:form class="sort-btn-container" prependId="false">
+                    <h:commandButton class="btn btn-m"
+                                     id="sortByAlphabetical-btn"
+                                     value="Alphabetical"
+                                     action="#{userInfoController.sortCopiesBy('alphabetical')}"
+                    />
+                    <h:commandButton class="btn btn-m"
+                                     id="sortByCopies-btn"
+                                     value="Copies"
+                                     action="#{userInfoController.sortCopiesBy('copies')}"
+                    />
+                    <h:commandButton class="btn btn-m"
+                                     id="sortByPainLevel-btn"
+                                     value="Pain Level"
+                                     action="#{userInfoController.sortCopiesBy('painLevel')}"
+                    />
+                    <h:commandButton class="btn btn-m"
+                                     id="sortByValue-btn"
+                                     value="Value"
+                                     action="#{userInfoController.sortCopiesBy('value')}"
+                    />
+                </h:form>
+
+                <h3>My cards:</h3>
                 <div class="cards-container">
                     <c:forEach var="copy" items="#{userInfoController.copies}">
                         <div class="copy-container" id="copy_id_#{copy.id}">
-
                             <div class="card-container" id="card_id_#{copy.item.id}">
                                 <div class="card-name"><h:outputText value="#{copy.item.name}"/></div>
                                 <div class="card-latin-name"><h:outputText value="#{copy.item.latinName}"/></div>

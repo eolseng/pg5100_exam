@@ -18,7 +18,7 @@ public class CardPackPO extends LayoutPO {
     }
 
     public int getNewCardCount() {
-        return driver.findElements(By.className("card-container")).size();
+        return getDriver().findElements(By.className("card-container")).size();
     }
 
     public CardPackPO openAnotherCardPack() {

@@ -1,8 +1,11 @@
 package no.kristiania.pg5100_exam.selenium.po.ui;
 
+import no.kristiania.pg5100_exam.backend.entity.Copy;
 import no.kristiania.pg5100_exam.selenium.PageObject;
 import no.kristiania.pg5100_exam.selenium.po.LayoutPO;
 import org.openqa.selenium.By;
+
+import java.util.Comparator;
 
 import static org.junit.Assert.assertTrue;
 
@@ -19,7 +22,7 @@ public class ProfilePO extends LayoutPO {
     }
 
     public boolean hasTransactions() {
-        return driver.findElements(By.className("transaction-container")).size() > 0;
+        return getDriver().findElements(By.className("transaction-container")).size() > 0;
     }
 
     public ChangePasswordPO toChangePassword() {

@@ -298,4 +298,60 @@ public abstract class SeleniumTestBase {
         assertTrue(getDriver().getPageSource().contains("Congratulations! You just bought a new Card Pack!"));
 
     }
+
+    @Test
+    public void testSorting() {
+
+        String username = getUniqueId();
+        String password = "123";
+        home = createNewUser(username, password);
+
+        CollectionPO collectionPO = home.toCollection();
+
+        CardPackPO cardPackPO = collectionPO.toOpenCardPack();
+        while (cardPackPO.getCardPackCount() > 0) {
+            cardPackPO = cardPackPO.openAnotherCardPack();
+        }
+        assertEquals(0, cardPackPO.getCardPackCount());
+        collectionPO = cardPackPO.toCollection();
+
+        // Sort alphabetically
+        collectionPO.sortBy("alphabetical");
+        List<WebElement> cards = collectionPO.getDriver().findElements(By.className("copy-container"));
+        for (int i = 0; i < cards.size() - 1; i++) {
+            String cardName = cards.get(i).findElements(By.className("card-name")).get(0).getText();
+            String nextCardName = cards.get(i + 1).findElements(By.className("card-name")).get(0).getText();
+            assertTrue(cardName.compareToIgnoreCase(nextCardName) <= 0);
+        }
+
+        // Sort by copies
+        collectionPO.sortBy("copies");
+        cards = collectionPO.getDriver().findElements(By.className("copy-container"));
+        for (int i = 0; i < cards.size() - 1; i++) {
+            int copyAmount = Integer.parseInt(cards.get(i).findElements(By.className("copy-amount")).get(0).getText().split(" ")[1]);
+            int nextCopyAmount = Integer.parseInt(cards.get(i + 1).findElements(By.className("copy-amount")).get(0).getText().split(" ")[1]);
+
+            System.out.println(copyAmount + " : " + nextCopyAmount);
+            assertTrue(copyAmount <= nextCopyAmount);
+        }
+
+        // Sort by painLevel
+        collectionPO.sortBy("painLevel");
+        cards = collectionPO.getDriver().findElements(By.className("copy-container"));
+        for (int i = 0; i < cards.size() - 1; i++) {
+            int cardPainLevel = Integer.parseInt(cards.get(i).findElements(By.className("card-pain-level")).get(0).getText().split(" ")[2]);
+            int nextCardPainLevel = Integer.parseInt(cards.get(i + 1).findElements(By.className("card-pain-level")).get(0).getText().split(" ")[2]);
+            assertTrue(cardPainLevel <= nextCardPainLevel);
+        }
+
+        // Sort by value
+        collectionPO.sortBy("value");
+        cards = collectionPO.getDriver().findElements(By.className("copy-container"));
+        for (int i = 0; i < cards.size() - 1; i++) {
+            int cardValue = Integer.parseInt(cards.get(i).findElements(By.className("card-value")).get(0).getText().split("\\$")[1]);
+            int nextCardValue = Integer.parseInt(cards.get(i + 1).findElements(By.className("card-value")).get(0).getText().split("\\$")[1]);
+            assertTrue(cardValue <= nextCardValue);
+        }
+
+    }
 }

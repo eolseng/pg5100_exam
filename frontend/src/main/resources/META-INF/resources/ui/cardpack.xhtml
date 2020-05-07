@@ -24,16 +24,6 @@
                 </div>
             </c:forEach>
         </div>
-
-        <h:form prependId="false">
-            <h:commandButton
-                    value="PURCHASE CARD PACK FOR $#{cardPackController.price}"
-                    action="#{cardPackController.purchaseCardPack()}"
-                    id="purchaseCardPack-btn"
-                    class="btn btn-m"
-                    rendered="#{userInfoController.balance >= cardPackController.price}"
-            />
-        </h:form>
         <h:outputLink
                 value="${pageContext.request.contextPath}/ui/cardpack.jsf"
                 id="toOpenCardPack-btn"

@@ -21,12 +21,21 @@ public class DefaultDataInitializerService {
 
     @PostConstruct
     public void initialize() {
-        createCards();
 
-        User user = userService.createUser("Foo", "bar");
-        cardPackService.openCardPack(user.getUsername());
-        cardPackService.openCardPack(user.getUsername());
-        cardPackService.openCardPack(user.getUsername());
+        /*
+            Need to check if data already exists in the database to avoid crashing the application.
+         */
+        int registeredUsers = userService.getAllUsers(false).size();
+        int registeredItems = itemService.getAllItems(false).size();
+
+        if(registeredUsers == 0 && registeredItems == 0){
+            createCards();
+
+            User user = userService.createUser("Foo", "bar");
+            cardPackService.openCardPack(user.getUsername());
+            cardPackService.openCardPack(user.getUsername());
+            cardPackService.openCardPack(user.getUsername());
+        }
 
     }
 

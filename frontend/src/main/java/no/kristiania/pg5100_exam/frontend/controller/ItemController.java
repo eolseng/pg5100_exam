@@ -18,8 +18,9 @@ public class ItemController {
     List<Item> allItems;
 
     public List<Item> getAllItems() {
-        if(allItems == null) {
+        if (allItems == null) {
             allItems = itemService.getAllItems(false);
+            allItems.sort((a, b) -> a.getName().compareToIgnoreCase(b.getName()));
         }
         return allItems;
     }

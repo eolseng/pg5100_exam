@@ -22,10 +22,10 @@ import org.testcontainers.images.builder.ImageFromDockerfile;
 
 import java.nio.file.Paths;
 
-@ContextConfiguration(initializers = SeleniumDockerIT.DockerInitializer.class)
+@ContextConfiguration(initializers = SeleniumDockerIT_skip.DockerInitializer.class)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class SeleniumDockerIT extends SeleniumTestBase {
+public class SeleniumDockerIT_skip extends SeleniumTestBase {
 
     private static String PG5100_EXAM_HOST_ALIAS = "pg5100_exam-host";
     private static String PG_ALIAS = "postgresql-host";
@@ -36,6 +36,7 @@ public class SeleniumDockerIT extends SeleniumTestBase {
             .withExposedPorts(5432)
             .withNetwork(network)
             .withNetworkAliases(PG_ALIAS)
+            .withEnv("POSTGRES_HOST_AUTH_METHOD", "trust")
             .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("POSTGRES")));
 
     public static class DockerInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
@@ -49,7 +50,8 @@ public class SeleniumDockerIT extends SeleniumTestBase {
             TestPropertyValues.of(
                     "spring.datasource.url=jdbc:postgresql://" + host + ":" + port + "/postgres",
                     "spring.datasource.username=postgres",
-                    "spring.datasource.password"
+                    "spring.datasource.password",
+                    "spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect"
             ).applyTo(configurableApplicationContext.getEnvironment());
         }
     }

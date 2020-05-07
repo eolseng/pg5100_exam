@@ -35,7 +35,7 @@ class DefaultDataInitializerServiceTest extends ServiceTestBase {
         dataInitializerService.initialize();
 
         List<Item> items = itemService.getAllItems(true);
-        assertEquals(30, items.size());
+        assertEquals(30, items.size(), "There are less than 30 cards in the database.");
 
     }
 }

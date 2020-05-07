@@ -1,6 +1,7 @@
 package no.kristiania.pg5100_exam.frontend.controller;
 
 import no.kristiania.pg5100_exam.backend.entity.Copy;
+import no.kristiania.pg5100_exam.backend.entity.Item;
 import no.kristiania.pg5100_exam.backend.entity.User;
 import no.kristiania.pg5100_exam.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Named
@@ -21,6 +26,7 @@ public class UserInfoController {
 
     private String username;
     private User user;
+
 
     private void getUser() {
         if (username == null) {
@@ -76,6 +82,25 @@ public class UserInfoController {
             getUser();
         }
         return user.getCopies().size();
+    }
+
+    public void sortCopiesBy(String sort) {
+
+        switch (sort) {
+            case "alphabetical":
+                user.getCopies().sort((a, b) -> a.getItem().getName().compareToIgnoreCase(b.getItem().getName()));
+                break;
+            case "copies":
+                user.getCopies().sort(Comparator.comparingInt(Copy::getAmount));
+                break;
+            case "painLevel":
+                user.getCopies().sort(Comparator.comparingInt(item -> item.getItem().getPainLevel()));
+                break;
+            case "value":
+                // Sorting by painLevel or value results in the same list because the lazy CardDesigners use value=painLevel*10
+                user.getCopies().sort(Comparator.comparingInt(item -> item.getItem().getValue()));
+                break;
+        }
     }
 
 }

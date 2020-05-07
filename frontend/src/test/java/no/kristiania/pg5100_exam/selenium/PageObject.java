@@ -33,11 +33,11 @@ public abstract class PageObject {
     public abstract boolean isOnPage();
 
     public void refresh() {
-        driver.navigate().refresh();
+        getDriver().navigate().refresh();
     }
 
     public void clickAndWait(String id) {
-        WebElement element = driver.findElement(By.id(id));
+        WebElement element = getDriver().findElement(By.id(id));
         element.click();
         try {Thread.sleep(200);} catch (Exception ex){/**/}
         waitForPageToLoad();
@@ -45,8 +45,8 @@ public abstract class PageObject {
     }
 
     private Boolean waitForPageToLoad() {
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
 
         return wait.until((ExpectedCondition<Boolean>) input -> {
             String result = jsExecutor.executeScript("return /loaded|complete/.test(document.readyState);").toString();
@@ -55,7 +55,7 @@ public abstract class PageObject {
     }
 
     public String getText(String id) {
-        return driver.findElement(By.id(id)).getText();
+        return getDriver().findElement(By.id(id)).getText();
     }
 
     public int getInteger(String id) {
@@ -64,7 +64,7 @@ public abstract class PageObject {
     }
 
     public void setText(String id, String text) {
-        WebElement element = driver.findElement(By.id(id));
+        WebElement element = getDriver().findElement(By.id(id));
 
         element.clear();
         element.click();

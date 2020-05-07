@@ -272,3 +272,8 @@ body {
     border: 1px solid black;
     border-radius: 4px;
 }
+
+.sort-btn-container{
+    display: flex;
+    justify-content: flex-start;
+}
