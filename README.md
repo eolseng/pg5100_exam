@@ -29,8 +29,10 @@ After cloning the repository, do a 'mvn clean install -DskipTests' from the root
 The service will be available on localhost:8080 when running.
 ####Running all tests:
 >From the root-module, do 'mvn clean verify'. A JaCoCo report is generated under the report-module.
+
 ####Local Test Run with H2 database:
 >In the frontend-module, under the src/test folder, start no.kristiania.pg5100_exam.LocalApplicationRunner.
+
 ####Docker-Compose
 >In the frontend-module, do 'docker-compose up' to start a containerized PostgreSQL:10 database and the service. This requires a Docker environment to run.
 
