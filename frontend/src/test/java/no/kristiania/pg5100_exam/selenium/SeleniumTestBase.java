@@ -300,7 +300,7 @@ public abstract class SeleniumTestBase {
     }
 
     @Test
-    public void testSorting() {
+    public void testSortCollection() {
 
         String username = getUniqueId();
         String password = "123";

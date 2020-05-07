@@ -1,5 +1,9 @@
 package no.kristiania.pg5100_exam.frontend;
 
+/*
+    BASED ON https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/frontend/src/main/java/org/tsdes/intro/exercises/quizgame/frontend/WebSecurityConfig.java
+ */
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

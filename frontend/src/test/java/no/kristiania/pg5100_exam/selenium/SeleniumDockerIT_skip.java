@@ -1,6 +1,7 @@
 package no.kristiania.pg5100_exam.selenium;
 
 import no.kristiania.pg5100_exam.Application;
+import org.junit.Ignore;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;

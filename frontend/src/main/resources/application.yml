@@ -3,7 +3,10 @@ jsf:
 
 spring:
   datasource:
+    url: "jdbc:postgresql://localhost:5432/postgres"
     driver-class-name: "org.postgresql.Driver"
+    username: postgres
+    password: docker
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false

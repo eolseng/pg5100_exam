@@ -10,7 +10,7 @@ import java.util.Set;
 public class User {
 
     public static final int MIN_PASSWORD_LENGTH = 3;
-    public static final Long STARTING_BALANCE = 3000L;
+    public static final Long STARTING_BALANCE = 1000L;
     public static final int STARTING_CARD_PACKS = 3;
 
     @Id

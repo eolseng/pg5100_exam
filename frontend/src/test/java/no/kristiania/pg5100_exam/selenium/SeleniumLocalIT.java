@@ -1,5 +1,9 @@
 package no.kristiania.pg5100_exam.selenium;
 
+/*
+    BASED ON https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/frontend/src/test/java/org/tsdes/intro/exercises/quizgame/selenium/SeleniumLocalIT.java
+ */
+
 import no.kristiania.pg5100_exam.Application;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
