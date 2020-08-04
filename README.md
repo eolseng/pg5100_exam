@@ -41,7 +41,9 @@ In the frontend-module, do `docker-compose up` to start a containerized PostgreS
 
 ## Technologies used:
 ### Spring-Boot-Starter
-Web, Security, Validation, Test, Validation
+Web, Security, Data-JPA, Validation, Test
+### Frontend
+Jakarta Server Faces / JavaServer Faces
 ### Database
 PostgreSQL, H2, FlyWay
 ### Testing
