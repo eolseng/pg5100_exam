@@ -1,4 +1,4 @@
-> EXAM || PG5100 - Enterprise 1 || ID 116
+> EXAM || PG5100 - Enterprise 1 || ID 116 || Grade: A
 # Schmidts Stinging Friends
 ![](docs/img/schmidt_pain_scale_index.jpg "Graphic by Michelle Enemark")
 
@@ -43,7 +43,7 @@ In the frontend-module, do `docker-compose up` to start a containerized PostgreS
 ### Spring-Boot-Starter
 Web, Security, Data-JPA, Validation, Test
 ### Frontend
-Jakarta Server Faces / JavaServer Faces
+XHTML, Jakarta Server Faces / JavaServer Faces
 ### Database
 PostgreSQL, H2, FlyWay
 ### Testing
